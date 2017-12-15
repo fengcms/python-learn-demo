@@ -4,14 +4,6 @@ import random
 import argparse
 import re
 
-# 用字典和长度随机生成一个密码
-def passwordMaker(leng, dicts):
-    res = ''
-    dictLen = len(dicts) - 1
-    for i in range(leng):
-        res += dicts[random.randint(0,dictLen)]
-    return res
-
 # 检查密码的等级
 def checkPassword(passwd):
     res = ''
@@ -25,7 +17,8 @@ def checkPassword(passwd):
 
 # 取得密码函数
 def getPassword(leng,level,dicts):
-    res = passwordMaker(leng, dicts)
+    # 用 random.choices 的方法替换了原来的 for 循环函数来生成密码
+    res = ''.join(random.choices(dicts, k=leng))
     # 检查密码是否符合期望的条件，如果不负责，则重新生成一遍
     if checkPassword(res) != level:
         return getPassword(leng, level, dicts)
