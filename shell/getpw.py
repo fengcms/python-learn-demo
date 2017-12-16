@@ -4,44 +4,18 @@ import random
 import argparse
 import re
 
-# # 用字典和长度随机生成一个密码
-# def passwordMaker(leng, dicts):
-#     res = ''
-#     dictLen = len(dicts) - 1
-#     for i in range(leng):
-#         res += dicts[random.randint(0,dictLen)]
-#     return res
-#
-# # 检查密码的等级
-# def checkPassword(passwd):
-#     res = ''
-#     if re.search(r'\d', passwd):
-#         res = 's'
-#         if re.search(r'[a-z]', passwd) and re.search(r'[A-Z]', passwd):
-#             res = 'c'
-#             if re.search(r'[_@!,.<>:;-=+/?]', passwd):
-#                 res = 'd'
-#     return res
-#
-# # 取得密码函数
-# def getPassword(leng,level,dicts):
-#     res = passwordMaker(leng, dicts)
-#     # 检查密码是否符合期望的条件，如果不负责，则重新生成一遍
-#     if checkPassword(res) != level:
-#         return getPassword(leng, level, dicts)
-#     return res
-
 def cutLength(leng, level):
-    cut = 1
-    if level == 'c':
-        cut = 3
-    if level == 'd':
-        cut = 4
     res = []
-    for i in range(cut, 1, -1):
-        res.append(random.randint(1, leng - sum(res) - i))
+    for i in range(level, 1, -1):
+        res.append(random.randint(1, leng - sum(res) - i + 1))
     res.append(leng - sum(res))
     random.shuffle(res)
+    return res
+
+def makePassword(dists, arr):
+    res = []
+    for i in range(len(arr)):
+        res += random.choices(dists[i], k=arr[i])
     return res
 
 def getPassword(leng, level):
@@ -58,18 +32,17 @@ def getPassword(leng, level):
     dDist = [str2,str3,str4,str5]
 
     res = []
-    if level == 's':
-        res = random.choices(sDist[0], k=leng)
+    if level == 1:
+        res = makePassword(sDist,arr)
 
-    if level == 'c':
-        for i in range(len(arr)):
-            res += random.choices(cDist[i], k=arr[i])
+    if level == 3:
+        res = makePassword(cDist,arr)
 
-    if level == 'd':
-        for i in range(len(arr)):
-            res += random.choices(dDist[i], k=arr[i])
+    if level == 4:
+        res = makePassword(dDist,arr)
+
     random.shuffle(res)
-    print(''.join(res))
+    return ''.join(res)
 # 主函数
 if __name__ == "__main__":
     # 设置命令行参数
@@ -94,19 +67,14 @@ if __name__ == "__main__":
         parser.print_usage()
         print('error: The password length must be greater than 3')
         exit()
+    
+    level = 3
 
-    getPassword(length, 'c')
-    getPassword(length, 's')
-    getPassword(length, 'd')
-    # 设定三个等级的密码生成的词典
-    # sDict = '0123456789'
-    # cDict = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789'
-    # dDict = cDict + '_@!,.:;-=+/?'
-    # 根据命令行条件，打印最终的密码
-    # if args.simple:
-        # print(getPassword(length, 's', sDict))
-    # elif args.difficult:
-        # print(getPassword(length, 'd', dDict))
-    # else:
-        # 默认输出为 一般复杂程度的密码
-        # print(getPassword(length, 'c', cDict))
+    if args.simple:
+        level = 1
+    if args.difficult:
+        level = 4
+    
+    res = getPassword(length, level)
+    print(res)
+    exit()
