@@ -53,8 +53,9 @@ def getPassword(leng, level):
     # 最后把数组变成字符串，并输出
     return ''.join(res)
 
-# 写入命令行
+# 将生成的密码写入文件
 def writePassword(name, passwd):
+    # 设定密码保存路径
     txtFile = './password.txt'
     # 如果文件不存在，则创建该文件
     if not os.path.exists(txtFile):
@@ -64,6 +65,7 @@ def writePassword(name, passwd):
 
     # 获取当前时间
     t = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    # 将结果追加到文件中
     f = open(txtFile, 'a')
     f.write(name + '\t' + passwd + '\t' + t + '\n')
     f.close()
