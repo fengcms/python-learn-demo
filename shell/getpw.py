@@ -34,20 +34,18 @@ def getPassword(leng, level):
     str4 = 'ABCDEFGHJKMNPQRSTUVWXYZ'
     str5 = '_@!,.:;-=+/?'
 
-    sDist = [str1+str2]
-    cDist = [str2,str3,str4]
-    dDist = [str2,str3,str4,str5]
-    
+    dist1 = [str1+str2]
+    dist3 = [str2,str3,str4]
+    dist4 = [str2,str3,str4,str5]
+
+    dists = {
+                1: dist1,
+                3: dist3,
+                4: dist4
+            }
     # 生成密码
-    res = []
-    if level == 1:
-        res = makePassword(sDist,arr)
+    res = makePassword(dists[level], arr)
 
-    if level == 3:
-        res = makePassword(cDist,arr)
-
-    if level == 4:
-        res = makePassword(dDist,arr)
     # 得到结果后，再一次随机排序
     random.shuffle(res)
     # 最后把数组变成字符串，并输出
