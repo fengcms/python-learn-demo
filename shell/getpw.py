@@ -22,7 +22,6 @@ def makePassword(dists, arr):
     res = []
     for i in range(len(arr)):
         res += random.choices(dists[i], k=arr[i])
-        print(res)
     return res
 # 生成一个密码函数
 def getPassword(leng, level):
