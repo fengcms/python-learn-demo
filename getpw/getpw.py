@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+##########################################################################
+# Name:    getpw.py                                                      #
+# Author:  FungLeo                                                       #
+# Date:    2017-12-20                                                    #
+# Purpose: This program is used to generate simple or complex passwords  #
+# Copy:    for study, prohibition of commercial use                      #
+##########################################################################
 import random
 import argparse
 import os

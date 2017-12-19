@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+##########################################################################
+# Name:    seepw.py                                                      #
+# Author:  FungLeo                                                       #
+# Date:    2017-12-20                                                    #
+# Purpose: used to manage the password saved in the database             #
+# Copy:    for study, prohibition of commercial use                      #
+##########################################################################
 import db
 import argparse
 
