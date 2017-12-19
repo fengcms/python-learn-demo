@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 import sqlite3
 import re
+from prettytable import PrettyTable
 
 DB_PATH = 'passwd.db'
 
@@ -23,6 +24,42 @@ def insertDb(name,passwd):
     checkDB(c)
     c.execute("INSERT INTO passwd (name,password) VALUES ('" + name + "', '" + passwd + "')");
     conn.commit()
+    conn.close()
 
-if __name__ == "__main__":
-    insertDb('test','xxxx')
+def selectDb(pid,name):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    checkDB(c)
+    select = "SELECT * from passwd "
+    if name:
+        select += ('where name LIKE \'%' + name + '%\'')
+    if pid:
+        select += ('where id = \'' + str(pid) + '\'')
+    
+    res = c.execute(select)
+    x = PrettyTable(['id','name','password','time'])
+    x.align['name'] = 'l'
+    x.padding_width = 1
+    for row in res:
+        x.add_row(list(row))
+    print(x)
+    conn.close()
+
+def deleteDb(pid):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    checkDB(c)
+    c.execute('DELETE from passwd where id=' + str(pid) )
+    conn.commit()
+    o = conn.total_changes
+    if o == 0:
+        print('Failure: the password was not found')
+    if o == 1:
+        print('Success: ID ' + str(pid) + ' password has been deleted')
+    conn.close()
+
+
+#if __name__ == "__main__":
+    #insertDb('test','xxxx')
+    #deleteDb(11)
+    #selectDb(False, False)
