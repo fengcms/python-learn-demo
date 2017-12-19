@@ -36,13 +36,17 @@ def selectDb(pid,name):
     if pid:
         select += ('where id = \'' + str(pid) + '\'')
     
-    res = c.execute(select)
-    x = PrettyTable(['id','name','password','time'])
-    x.align['name'] = 'l'
-    x.padding_width = 1
-    for row in res:
-        x.add_row(list(row))
-    print(x)
+    res = list(c.execute(select))
+    
+    if len(res) == 0:
+        print('Info: record is empty')
+    else:
+        x = PrettyTable(['id','name','password','time'])
+        x.align['name'] = 'l'
+        x.padding_width = 1
+        for row in res:
+            x.add_row(list(row))
+        print(x)
     conn.close()
 
 def deleteDb(pid):
