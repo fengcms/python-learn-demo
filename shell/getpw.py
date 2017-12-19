@@ -24,11 +24,15 @@ def cutLength(leng, level):
 # 根据上面生成的数组和对应的字典，制造一个密码数组
 def makePassword(dists, arr):
     res = []
+    # 根据字典和数组，循环生成密码
     for i in range(len(arr)):
         # res += random.choices(dists[i], k=arr[i])
         for j in range(arr[i]):
             res += random.choice(dists[i])
-    return res
+    # 得到结果后，再一次随机排序
+    random.shuffle(res)
+    # 最后把数组变成字符串，并输出
+    return ''.join(res)
 # 生成一个密码函数
 def getPassword(leng, level):
     # 根据密码长度和等级，去求一个满足条件的数组
@@ -46,12 +50,7 @@ def getPassword(leng, level):
                 4: [str2, str3, str4, str5]
             }
     # 生成密码
-    res = makePassword(dists[level], arr)
-
-    # 得到结果后，再一次随机排序
-    random.shuffle(res)
-    # 最后把数组变成字符串，并输出
-    return ''.join(res)
+    return makePassword(dists[level], arr)
 
 # 将生成的密码写入文件
 def writePassword(name, passwd):
