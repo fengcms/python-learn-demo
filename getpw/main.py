@@ -5,6 +5,7 @@ import argparse
 import os
 import time
 import clipboard
+import db
 
 # 设定密码保存路径
 DEFAULT_FILENAME = './password.txt'
@@ -67,6 +68,8 @@ def writePassword(name, passwd):
     f.write(name + '\t' + passwd + '\t' + t + '\n')
     f.close()
 
+#def writePasswordInDB(name, passwd):
+    db.insertDb(name,passwd)
 # 输出结果
 def returnPassword(passwd, name):
     clipboard.copy(passwd)
@@ -113,6 +116,7 @@ if __name__ == "__main__":
     res = getPassword(length, level)
     # 如果密码需要保存，则写入文件
     if args.name:
-        writePassword(args.name, res)
+        db.insertDb(args.name,res)
+        #writePassword(args.name, res)
     # 返回结果
     returnPassword(res, args.name)
