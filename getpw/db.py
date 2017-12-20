@@ -9,9 +9,10 @@
 ##########################################################################
 import sqlite3
 import re
+import sys
 from prettytable import PrettyTable
 
-DB_PATH = 'passwd.db'
+DB_PATH = sys.path[0] + '/passwd.db'
 
 def checkDB(db):
     db.execute('''SELECT name FROM sqlite_master
