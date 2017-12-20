@@ -37,12 +37,14 @@ def selectDb(pid,name):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     checkDB(c)
+
     select = "SELECT * from passwd "
     if name:
         select += ('where name LIKE \'%' + name + '%\'')
     if pid:
         select += ('where id = \'' + str(pid) + '\'')
-    
+    select += 'ORDER BY id DESC'    
+
     res = list(c.execute(select))
     
     if len(res) == 0:
@@ -68,9 +70,3 @@ def deleteDb(pid):
     if o == 1:
         print('Success: ID ' + str(pid) + ' password has been deleted')
     conn.close()
-
-
-#if __name__ == "__main__":
-    #insertDb('test','xxxx')
-    #deleteDb(11)
-    #selectDb(False, False)

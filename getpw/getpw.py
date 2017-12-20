@@ -86,9 +86,9 @@ if __name__ == "__main__":
     length = args.length or 8
 
     # 如果密码长度小于 4 则提示并退出
-    if length < 4:
+    if length < 4 or length > 255:
         parser.print_usage()
-        print('error: The password length must be greater than 3')
+        print('error: The password length should be between 4-255')
         exit()
     
     # 默认密码等级为一般
@@ -100,10 +100,14 @@ if __name__ == "__main__":
         level = 4
     
     # 去得到密码
-    res = getPassword(length, level)
+    pw = getPassword(length, level)
+    name = args.name
     # 如果密码需要保存，则写入文件
-    if args.name:
-        db.insertDb(args.name,res)
-        #writePassword(args.name, res)
+    if name:
+        if len(name) > 100:
+            parser.print_usage()
+            print('error: The length of password name should not be more than 100')
+            exit()
+        db.insertDb(args.name,pw)
     # 返回结果
-    returnPassword(res, args.name)
+    returnPassword(pw, name)
