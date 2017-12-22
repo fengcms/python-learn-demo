@@ -13,6 +13,7 @@ import os
 import time
 import clipboard
 import db
+from pwlang import lang
 
 # 根据需要的结果，剪出一个数组
 def cutLength(leng, level):
@@ -60,24 +61,24 @@ def getPassword(leng, level):
 # 输出结果
 def returnPassword(passwd, name):
     clipboard.copy(passwd)
-    print('New password:\t\033[31m' + passwd + '\033[0m\nTip: The password has been copied to the clipboard')
+    print(lang('getpw_show_left') + '\t\033[31m' + passwd + '\033[0m\n' + lang('getpw_show_right'))
     if name:
-        print('And the password has been saved in data base')
+        print(lang('getpw_save'))
     exit()
 
 # 主函数
 if __name__ == "__main__":
     # 设置命令行参数
     parser = argparse.ArgumentParser()
-    parser.description='This program is used to generate simple or complex passwords'
+    parser.description=lang('getpw_desc')
     parser.add_argument("-v", "--version",action='version', version='%(prog)s 1.0')
-    parser.add_argument('length', type=int, help='The length of the password (Default 8)', nargs='?')
-    parser.add_argument('-n', '--name', help='Take a name for your password and Write it in  data base')
+    parser.add_argument('length', type=int, help=lang('getpw_leng'), nargs='?')
+    parser.add_argument('-n', '--name', help=lang('getpw_leng'))
 
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("-s", "--simple", help="The password is made up of pure numbers", action="store_true")
-    group.add_argument("-c", "--commonly", help="The password is made up of numbers and letters (Default)", action="store_true")
-    group.add_argument("-d", "--difficult", help="The password is made up of numbers, letters, and punctuation", action="store_true")
+    group.add_argument("-s", "--simple", help=lang('getpw_simp'), action="store_true")
+    group.add_argument("-c", "--commonly", help=lang('getpw_comm'), action="store_true")
+    group.add_argument("-d", "--difficult", help=lang('getpw_diff'), action="store_true")
 
     # 获取命令行参数结果
     args = parser.parse_args()
@@ -88,7 +89,7 @@ if __name__ == "__main__":
     # 如果密码长度小于 4 则提示并退出
     if length < 4 or length > 255:
         parser.print_usage()
-        print('error: The password length should be between 4-255')
+        print(lang('getpw_err_len'))
         exit()
     
     # 默认密码等级为一般
@@ -106,7 +107,7 @@ if __name__ == "__main__":
     if name:
         if len(name) > 100:
             parser.print_usage()
-            print('error: The length of password name should not be more than 100')
+            print(lang('getpw_err_name'))
             exit()
         db.insertDb(args.name,pw)
     # 返回结果

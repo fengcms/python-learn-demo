@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import sys
 from prettytable import PrettyTable
+from pwlang import lang
 
 DB_PATH = 'sqlite:///' + sys.path[0] + '/passwd.db'
 Base = declarative_base()
@@ -46,7 +47,7 @@ def selectDb(pid, name):
         res = res.filter(Passwd.name.like('%' + name + '%'))
     res = res.all()
     if not res:
-        print('Info: record is empty')
+        print(lang('db_no_emp'))
         exit()
 
     for i in res:
@@ -58,7 +59,7 @@ def deleteDb(pid):
     if de:
         session.delete(de)
         session.commit()
-        print('Success: ID ' + str(pid) + ' password has been deleted')
+        print(lang('db_del_succ_left') + str(pid) + lang('db_del_succ_right'))
     else:
-        print('Failure: the password was not found')
+        print(lang('db_del_fail'))
 

@@ -11,6 +11,7 @@ import sqlite3
 import re
 import sys
 from prettytable import PrettyTable
+from pwlang import lang
 
 DB_PATH = sys.path[0] + '/passwd.db'
 
@@ -49,7 +50,7 @@ def selectDb(pid,name):
     res = list(c.execute(select))
     
     if len(res) == 0:
-        print('Info: record is empty')
+        print(lang('db_no_emp'))
     else:
         x = PrettyTable(['id','name','password','time'])
         x.align['name'] = 'l'
@@ -67,7 +68,7 @@ def deleteDb(pid):
     conn.commit()
     o = conn.total_changes
     if o == 0:
-        print('Failure: the password was not found')
+        print(lang('db_del_fail'))
     if o == 1:
-        print('Success: ID ' + str(pid) + ' password has been deleted')
+        print(lang('db_del_succ_left') + str(pid) + lang('db_del_succ_right'))
     conn.close()
