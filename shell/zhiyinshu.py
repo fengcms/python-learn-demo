@@ -36,3 +36,4 @@ if __name__ == "__main__":
         print('该数为质数')
     else:
         echo(a)
+        print('该数字的质因数结果是：' + str(a)[1:len(str(a)) - 1].replace(',','*').replace(' ',''))
