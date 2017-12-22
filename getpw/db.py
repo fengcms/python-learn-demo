@@ -23,7 +23,7 @@ class Passwd(Base):
 engine = create_engine(DB_PATH)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-
+metadata.create_all(engine)
 def obj2list(obj):
     d = []
     for column in obj.__table__.columns:
