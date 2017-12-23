@@ -24,7 +24,6 @@ def calc(num):
                 calc(num/i)
             break
         i += 1
-    return []
 
 def checkInput():
     num = len(sys.argv) > 1 and sys.argv[1] or input('输入: ')
