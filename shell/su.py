@@ -25,6 +25,7 @@ def calc(num, arr):
                 calc(num/i, arr)
             break
         i += 1
+    return []
 
 def checkInput():
     num = len(sys.argv) > 1 and sys.argv[1] or input('输入: ')
@@ -34,17 +35,14 @@ def checkInput():
     return int(num)
 
 def echo(num, a):
-    res = '数字'+str(num)+' 的质因数结果是: '
+    res = '数字 '+str(num)+' 的质因数结果是: '
     if len(a) == 0:
         res += str(num)
     else:
         res += str(a)[1:len(str(a))-1].replace(', ','*')
-    return res
+    print(res)
 
 if __name__ == '__main__':
-
     print('这是一个计算一个数字的质因数的程序\n请输入您要计算质因数的数字')
-    
     num = checkInput()
-    arr = calc(num, []) if calc(num, []) else []
-    print(echo(num, arr))
+    echo(num, calc(num, []))
