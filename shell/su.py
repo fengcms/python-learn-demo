@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+import sys
+
 def isPrime(n):
     if n <= 1:
         return False
@@ -11,7 +13,9 @@ def isPrime(n):
     return True
 
 def calc(num):
-    for i in range(2,int(num**0.5) + 1):
+    i = 2
+    while i*i <= int(num):
+    #for i in range(2,int(num**0.5) + 1):
         if num%i == 0:
             a.append(i)
             if isPrime(num/i):
@@ -19,9 +23,10 @@ def calc(num):
             else:
                 calc(num/i)
             break
+        i += 1
 
 def checkInput():
-    num = input('输入: ')
+    num = len(sys.argv) > 1 and sys.argv[1] or input('输入: ')
     while not num.isdigit():
         print('输入的内容必须是正整数哦！')
         num = input('输入: ')
