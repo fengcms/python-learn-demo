@@ -27,6 +27,14 @@ def checkInput():
         num = input('输入: ')
     return int(num)
 
+def echo(num, a):
+    res = '数字'+str(num)+' 的质因数结果是: '
+    if len(a) == 0:
+        res += str(num)
+    else:
+        res += str(a)[1:len(str(a))-1].replace(', ','*')
+    return res
+
 if __name__ == '__main__':
 
     print('这是一个计算一个数字的质因数的程序\n请输入您要计算质因数的数字')
@@ -34,4 +42,4 @@ if __name__ == '__main__':
     num = checkInput()
     a = []
     calc(num)
-    print('数字'+str(num)+' 的质因数结果是:'+str(a)[1:len(str(a))-1].replace(', ','*'))
+    print(echo(num, a))
