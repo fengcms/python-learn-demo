@@ -12,7 +12,7 @@ def isPrime(n):
         i += 1
     return True
 
-def calc(num, arr):
+def calc(num):
     i = 2
     while i*i <= int(num):
     #for i in range(2,int(num**0.5) + 1):
@@ -20,9 +20,8 @@ def calc(num, arr):
             arr.append(i)
             if isPrime(num/i):
                 arr.append(int(num/i))
-                return arr
             else:
-                calc(num/i, arr)
+                calc(num/i)
             break
         i += 1
 
@@ -34,17 +33,16 @@ def checkInput():
     return int(num)
 
 def echo(num, a):
-    res = '数字'+str(num)+' 的质因数结果是: '
+    res = '数字 '+str(num)+' 的质因数结果是: '
     if len(a) == 0:
         res += str(num)
     else:
         res += str(a)[1:len(str(a))-1].replace(', ','*')
-    return res
+    print(res)
 
 if __name__ == '__main__':
-
     print('这是一个计算一个数字的质因数的程序\n请输入您要计算质因数的数字')
-    
     num = checkInput()
-    arr = calc(num, []) if calc(num, []) else []
-    print(echo(num, arr))
+    arr = []
+    calc(num)
+    echo(num, arr)
