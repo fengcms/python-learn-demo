@@ -37,17 +37,20 @@ def resizeImg(arr, size, tdir, imgQual):
         if simg_w <= size and simg_h <= size:
             simg.save(tdir + '/' + os.path.basename(img), quality=imgQual)
         else:
+            # 比较源图片的宽高，计算处理后的宽高
             timg_w = size
             timg_h = int(size * simg_h / simg_w)
             if simg_w < simg_h:
                 timg_w = int(size * simg_w / simg_h)
                 timg_h = size
+            # 缩小图片并保存
             timg = simg.resize((timg_w, timg_h),Image.ANTIALIAS)
             timg.save(tdir + '/' + os.path.basename(img), quality=imgQual)
     print('\033[32mSuccess:\033[0m Task Finish')
 
-# 如果目标目录为空时提示用户确认
+# 目标目录处理函数
 def checkTargetDir(sdir, tdir):
+    # 如果目标目录为空时提示用户确认
     if not tdir:
         print('\033[33mWarning:\033[0m If the target directory isn\'t set, the processing '\
                 'results will cover the picture in the source directory\n'\
@@ -56,11 +59,21 @@ def checkTargetDir(sdir, tdir):
         if confirm in ('', 'Y', 'y'):
             print('\033[34mInfo:\033[0m The target directory is ' + sdir)
             return sdir
-        elif confirm in ('N', 'n'):
-            exit()
         else:
-            print('Input error, program exit')
             exit()
+    else:
+        # 如果目标目录设定，但是不存在，则提示用户是否创建目标目录
+        if not os.path.exists(tdir):
+            print('Target directory don\'t exist\n'\
+                    '\033[36mWhether to create the Target directory(Y/n)\033[0m')
+            confirm = input('Confirm:')
+            if confirm in ('', 'Y', 'y'):
+                os.makedirs(tdir)
+                return tdir
+            else:
+                exit()
+        else:
+            return tdir
 
 if __name__ == "__main__":
     # 设置命令行参数
@@ -76,7 +89,7 @@ if __name__ == "__main__":
 
     size = args.size
     sDir = args.sourceDir
-    tDir = args.targetDir or checkTargetDir(sDir,args.targetDir)
+    tDir = checkTargetDir(sDir,args.targetDir)
     imgQual = args.quality or 60
     # 执行处理 
     resizeImg(findImg(sDir), size, tDir, imgQual)
