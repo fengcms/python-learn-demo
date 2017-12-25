@@ -89,7 +89,8 @@ if __name__ == "__main__":
 
     size = args.size
     sDir = args.sourceDir
+    imageArr = findImg(sDir)
     tDir = checkTargetDir(sDir,args.targetDir)
     imgQual = args.quality or 60
     # 执行处理 
-    resizeImg(findImg(sDir), size, tDir, imgQual)
+    resizeImg(imageArr, size, tDir, imgQual)
