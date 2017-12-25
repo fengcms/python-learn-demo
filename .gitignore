@@ -1,4 +1,6 @@
 .DS_Store
 shell/password.txt
 passwd.db
+resize-image/image
+resize-image/target-image
 __pycache__
