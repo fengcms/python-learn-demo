@@ -65,8 +65,8 @@ def checkTargetDir(sdir, tdir):
 if __name__ == "__main__":
     # 设置命令行参数
     parser = argparse.ArgumentParser()
-    parser.description='Output to the target directory after processing the picture\
-            in the source directory based on the parameters'
+    parser.description='Reduce the picture in the source directory and save it to \
+            the target directory based on the longest side parameters'
     parser.add_argument("-v", "--version",action='version', version='%(prog)s 1.0')
     parser.add_argument('size', type=int, help='The max width or max height of a picture')
     parser.add_argument('sourceDir', help='Source directory')
