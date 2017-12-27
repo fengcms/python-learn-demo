@@ -1,4 +1,5 @@
 .DS_Store
+*.swp
 shell/password.txt
 passwd.db
 resize-image/image

@@ -61,19 +61,17 @@ def checkTargetDir(sdir, tdir):
             return sdir
         else:
             exit()
-    else:
-        # 如果目标目录设定，但是不存在，则提示用户是否创建目标目录
-        if not os.path.exists(tdir):
-            print('Target directory don\'t exist\n'\
-                    '\033[36mWhether to create the Target directory(Y/n)\033[0m')
-            confirm = input('Confirm:')
-            if confirm in ('', 'Y', 'y'):
-                os.makedirs(tdir)
-                return tdir
-            else:
-                exit()
-        else:
+    # 如果目标目录设定，但是不存在，则提示用户是否创建目标目录
+    if not os.path.exists(tdir):
+        print('Target directory don\'t exist\n'\
+                '\033[36mWhether to create the Target directory(Y/n)\033[0m')
+        confirm = input('Confirm:')
+        if confirm in ('', 'Y', 'y'):
+            os.makedirs(tdir)
             return tdir
+        else:
+            exit()
+    return tdir
 
 if __name__ == "__main__":
     # 设置命令行参数
