@@ -46,9 +46,11 @@ def insertDb(dat):
     session.add(new_art)
     session.commit()
 
-def readDb():
+def readDb(args):
+    pagesize = args.get('pagesize') or 10
+    page = args.get('page') or 0
     res = []
-    dat = session.query(Article).all()
+    dat = session.query(Article).offset(page).limit(pagesize)
     for i in dat:
         res.append(row2dict(i))
-    print(res)
+    return res

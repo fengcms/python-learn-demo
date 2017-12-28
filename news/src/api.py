@@ -12,8 +12,9 @@ def hello_world():
 @app.route('/news', methods=['GET', 'POST'])
 def news():
     if request.method == 'GET':
-        model.readDb()
-        return 'get status:200'
+        print(request.args.to_dict())
+        res = model.readDb(request.args.to_dict())
+        return str(res)
     elif request.method == 'POST':
         model.insertDb(request.form.to_dict())
         return 'post status:200'
