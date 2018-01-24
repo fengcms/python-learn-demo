@@ -34,10 +34,19 @@ def row2dict(row):
         d[column.name] = str(getattr(row, column.name))
     return d
 
-def insertDb(dat):
+def artiListGet(args):
+    pagesize = args.get('pagesize') or 10
+    page = args.get('page') or 0
+    res = []
+    dat = session.query(Article).offset(page).limit(pagesize)
+    for i in dat:
+        res.append(row2dict(i))
+    return res
+
+def artiListPost(dat):
     new_art = Article(
         title = dat.get('title'),
-        channel_id = dat.get('channel_id'),
+        channel_id = dat.get('channel_id') or 0,
         author = dat.get('author') or '',
         origin = dat.get('origin') or '',
         content = dat.get('content'),
@@ -46,11 +55,23 @@ def insertDb(dat):
     session.add(new_art)
     session.commit()
 
-def readDb(args):
-    pagesize = args.get('pagesize') or 10
-    page = args.get('page') or 0
-    res = []
-    dat = session.query(Article).offset(page).limit(pagesize)
-    for i in dat:
-        res.append(row2dict(i))
-    return res
+# def insertDb(dat):
+#     new_art = Article(
+#         title = dat.get('title'),
+#         channel_id = dat.get('channel_id'),
+#         author = dat.get('author') or '',
+#         origin = dat.get('origin') or '',
+#         content = dat.get('content'),
+#         img = dat.get('img') or '',
+#     )
+#     session.add(new_art)
+#     session.commit()
+#
+# def readDb(args):
+#     pagesize = args.get('pagesize') or 10
+#     page = args.get('page') or 0
+#     res = []
+#     dat = session.query(Article).offset(page).limit(pagesize)
+#     for i in dat:
+#         res.append(row2dict(i))
+#     return res
