@@ -84,7 +84,8 @@ async def upimg(request):
 @app.route('/api/v1/img', methods=['GET'])
 async def img(request):
     host = request.headers.get('referer') or 'ilovethisword'
-    path = baseDir + request.args.get('path')
+    args = request.args.get('path') or 'ilovemywife'
+    path = baseDir + args
     if not checkHost(host):
         path = baseDir + '/7b/e49a54f761da42174d6121fa13e0b3.png'
 
