@@ -2,19 +2,17 @@
 # -*- coding: UTF-8 -*-
 from sanic import Sanic
 from sanic.response import json, text, file
+# from sanic.log import logger
 from utils import ok, fail
 import os, sys
 import hashlib
+from config import token, allowHost
+# import logging
+# logging.basicConfig(filename='./log.log',level=logging.DEBUG)
 
+# app = Sanic(log_config=LOGGING)
 app = Sanic()
 baseDir = sys.path[0] + '/image/'
-token = '222'
-allowHost = [
-            'localhost',
-            'ilovethisword',
-            'i.fengcss.com',
-            'blog.csdn.net'
-        ]
 
 def checkHost(host):
     for i in allowHost:
@@ -94,4 +92,4 @@ async def img(request):
     return await file(path)
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8000)
+    app.run(host="127.0.0.1", port=8000, debug=False, access_log=True)
