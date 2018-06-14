@@ -41,10 +41,10 @@ def genRanList(min, max = None):
     res = random.sample(list(itertools.combinations(dic,2)),max - min + 1) 
     return [str(i[0]) + '-' + str(i[1]) for i in res]
 if __name__ == "__main__":
-    print(randomList(10))
-    print(genList(10))
-    print(genList2(3))
-    print(genRanList(5))
+    #print(randomList(10))
+    #print(genList(10))
+    #print(genList2(3))
+    print(genRanList(3,15))
 #def randnum(min_num,max_num=None):
 #    '随机生成不重复俩俩对应数组'
 #    '|--生成一个指定范围的数列'

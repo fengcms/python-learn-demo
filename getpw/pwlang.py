@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
-DEFAULT_LANG = 'en'
-#DEFAULT_LANG = 'cn'
+#DEFAULT_LANG = 'en'
+DEFAULT_LANG = 'cn'
 def lang(t):
     dicts = {}
     if DEFAULT_LANG == 'en':
