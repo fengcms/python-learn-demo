@@ -5,3 +5,4 @@ passwd.db
 resize-image/image
 resize-image/target-image
 __pycache__
+nohup.out
