@@ -2,20 +2,18 @@
 # -*- coding: UTF-8 -*-
 from sanic import Sanic
 from sanic.response import json, text, file
-from utils import ok, fail
 import os, sys
 import hashlib
-from config import PORT, TOKEN, ALLOWHOST, IMG401, IMG404, SUPPORT_TYPE
 
 app = Sanic()
-baseDir = sys.path[0] + '/image/'
+baseDir = '/Users/fungleo/Documents/Blog/articles/image/'
 
-# 检查请求地址是否有权限
-def checkHost(host):
-    for i in ALLOWHOST:
-        if i in host:
-            return True
-    return False
+# 成功以及失败的返回脚本
+def ok(data):
+    return json({"data": data, "status": 0})
+
+def fail(data):
+    return json({"data": data, "status": 1})
 
 # 字节码转16进制字符串
 def bytes2hex(bytes):
@@ -29,17 +27,19 @@ def bytes2hex(bytes):
 
 # 根据16进制字符串获取文件后缀
 def getSuffix(hexStr):
+    SUPPORT_TYPE = {
+            'ffd8ffe000104a464946':'jpg',
+            '89504e470d0a1a0a0000':'png',
+            '47494638396126026f01':'gif',
+        }
     for i in SUPPORT_TYPE:
         if i == hexStr:
             return SUPPORT_TYPE[i]
     return 'error type'
 
-
-@app.route('/api/v1/upimg', methods=['POST'])
+# 上传文件接口
+@app.route('/upimg', methods=['POST'])
 async def upimg(request):
-    # 判断用户是否具有上传权限
-    if request.headers.get('token') != TOKEN:
-        return fail('您没有使用本服务的权限')
     
     # 判断参数是否正确
     if not request.files and not request.files.get('file'):
@@ -72,17 +72,5 @@ async def upimg(request):
     # 给客户端返回结果
     return ok({"path": resPath})
 
-@app.route('/api/v1/img', methods=['GET'])
-async def img(request):
-    host = request.headers.get('referer') or 'ilovethisword'
-    args = request.args.get('path') or 'ilovemywife'
-    path = baseDir + args
-    if not checkHost(host):
-        path = baseDir + IMG401
-
-    if not os.path.exists(path):
-        path = baseDir + IMG404
-    return await file(path)
-
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=PORT)
+    app.run(host="127.0.0.1", port=7000)
