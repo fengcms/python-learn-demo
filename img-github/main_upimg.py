@@ -27,13 +27,14 @@ def bytes2hex(bytes):
 
 # 根据16进制字符串获取文件后缀
 def getSuffix(hexStr):
+    print(hexStr)
     SUPPORT_TYPE = {
-            'ffd8ffe000104a464946':'jpg',
+            'ffd8ffe':'jpg',
             '89504e470d0a1a0a0000':'png',
-            '47494638396126026f01':'gif',
+            '474946383961':'gif',
         }
     for i in SUPPORT_TYPE:
-        if i == hexStr:
+        if i in hexStr:
             return SUPPORT_TYPE[i]
     return 'error type'
 
