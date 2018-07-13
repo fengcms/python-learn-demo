@@ -4,6 +4,8 @@ from sanic import Sanic
 from sanic.response import json, text, file
 import os, sys
 import hashlib
+from PIL import Image
+from io import BytesIO
 
 app = Sanic()
 baseDir = '/Users/fungleo/Documents/Blog/articles/image/'
@@ -38,6 +40,11 @@ def getSuffix(hexStr):
             return SUPPORT_TYPE[i]
     return 'error type'
 
+def saveImage(savePath, image):
+    tempFile = open(savePath, 'wb')
+    tempFile.write(image)
+    tempFile.close()
+
 # 上传文件接口
 @app.route('/upimg', methods=['POST'])
 async def upimg(request):
@@ -65,10 +72,25 @@ async def upimg(request):
     if not os.path.exists(saveDir):
         os.makedirs(saveDir)
 
-    # 将文件写入到硬盘
-    tempFile = open(savePath, 'wb')
-    tempFile.write(image)
-    tempFile.close()
+    # 如果是 jpg 图片，则添加水印
+    if imageSuffix == 'jpg':
+        bImg = BytesIO(image)
+        img = Image.open(bImg)
+        imgW = img.size[0]
+        imgH = img.size[1]
+
+        if imgW >= 300 and imgH >= 100:
+            mark = Image.open("mark.png")
+            layer = Image.new('RGBA', img.size, (0,0,0,0))
+            layer.paste(mark, (imgW - 180, imgH - 60))
+            out = Image.composite(layer, img, layer)
+            out.save(savePath, 'JPEG', quality = 100)
+        else:
+            saveImage(savePath, image)
+
+    # 否则直接将文件写入到硬盘
+    else:
+        saveImage(savePath, image)
 
     # 给客户端返回结果
     return ok({"path": resPath})

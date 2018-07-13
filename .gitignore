@@ -1,6 +1,7 @@
 .DS_Store
 *.swp
 shell/password.txt
+fanyi/config.py
 passwd.db
 resize-image/image
 resize-image/target-image
