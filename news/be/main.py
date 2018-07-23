@@ -13,6 +13,7 @@ from session import makeSession, checkSession, clearSession, updataSession
 
 import rest
 import query
+from api import Api
 
 app = Sanic(__name__)
 FIX = config.BE_PREFIX
@@ -66,6 +67,8 @@ async def login(request):
     res.cookies['session'] = session
     res.cookies['session']['httponly'] = True
     return  res
+
+Api(bp)
 
 # restFul 方法列表公用类
 class listView(HTTPMethodView):
