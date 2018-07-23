@@ -17,3 +17,9 @@ def checkParam(params, req):
         if not i in req:
             return fail('参数错误')
 
+def str2Hump(text):
+    arr = text.lower().split('_')
+    res = ''
+    for i in arr:
+        res =  res + i[0].upper() + i[1:]
+    return res

@@ -3,13 +3,15 @@
 from sanic import Sanic
 from sanic.response import text
 from sanic.exceptions import NotFound
+from sanic.views import HTTPMethodView
 from sanic import Blueprint
 import json
 
 import config
-from tool import ok, fail, checkParam
+from tool import ok, fail, checkParam, str2Hump
 from session import makeSession, checkSession, clearSession, updataSession
 
+import rest
 import query
 
 app = Sanic(__name__)
@@ -65,63 +67,26 @@ async def login(request):
     res.cookies['session']['httponly'] = True
     return  res
 
-@bp.route('article', methods=['POST', 'GET'])
-async def article(request):
-    M = request.method
-    if M == 'GET':
-        res = query.ls('Article')
-        if isinstance(res, list):
-            return ok(res)
-        if res == 404:
-            return fail('数据库中没有该表', 404)
-        elif res == 500:
-            return fail('服务器内部错误', 500)
-    elif M == 'POST':
-        req = json.loads(request.body)
-        res = query.post('Article', req)
-        if res == 1:
-            return ok('数据添加成功')
-        elif res == 404:
-            return fail('数据库中没有' + 'Article' + '这个表', 404)
-        elif res == 500:
-            return fail('数据添加失败')
-    else:
-        return fail('不被允许的请求方法', 405)
+# restFul 方法列表公用类
+class listView(HTTPMethodView):
+    async def get(self, request, name):
+        return rest.ls(request, name)
+    async def post(self, request, name):
+        return rest.post(request, name)
 
-@bp.route('article/<id>', methods=['DELETE', 'GET', 'PUT'])
-async def article(request, id):
-    M = request.method
-    if M == 'GET':
-        res = query.get('Article', id)
-        if isinstance(res, dist):
-            return ok(res)
-        elif res == 404:
-            return fail('没有查询到数据', 404)
-        elif res == 500:
-            return fail('服务器内部错误', 500)
-    elif M == 'PUT':
-        req = json.loads(request.body)
-        res = query.put('Article', id, req)
-        if res == 1:
-            return ok('更新成功')
-        elif res == 2:
-            return fail('没有这条数据')
-        elif res == 3:
-            return fail('参数错误')
-        elif res == 500:
-            return fail('服务器内部错误', 500)
-    elif M == 'DELETE':
-        res = query.delete('Article', id)
-        if res == 1:
-            return ok('删除成功')
-        elif res == 2:
-            return fail('没有这条数据')
-        elif res == 500:
-            return fail('服务器内部错误', 500)
-    else:
-        return fail('不被允许的请求方法', 405)
+# restFul 方法内容公用类
+class itemView(HTTPMethodView):
+    async def get(self, request, name, oid):
+        return rest.get(request, name, oid)
+    async def put(self, request, name, oid):
+        return rest.put(request, name, oid)
+    async def delete(self, request, name, oid):
+        return rest.delete(request, name, oid)
 
 
 app.blueprint(bp)
+app.add_route(listView.as_view(), FIX + '<name>')
+app.add_route(itemView.as_view(), FIX + '<name>/<oid>')
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=False, port=9000)

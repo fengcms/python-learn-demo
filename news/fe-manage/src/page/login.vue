@@ -7,6 +7,7 @@
     <input type="button" @click='del' value="删除数据">
     <input type="button" @click='put' value="修改数据">
     <input type="button" @click='post' value="添加数据">
+    <input type="button" @click='get' value="获取单条数据">
   </div>
 </template>
 <script>
@@ -53,9 +54,16 @@ export default {
     },
     put () {
       this.$api.put('article/17', {
-        titles: '我爱你',
+        title: '我爱你',
         content: '我爱你的内容'
       }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    get () {
+      this.$api.get('article/17', null, r => {
         console.log(r)
       }, e => {
         console.log(e)

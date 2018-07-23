@@ -3,4 +3,4 @@
 
 BE_PREFIX = '/api/v1/be/'
 FE_PREFIX = '/api/v1/fe/'
-ANONYMOUS_API = ['login', 'logout']
+ANONYMOUS_API = ['login', 'logout', 'test']
