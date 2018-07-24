@@ -28,12 +28,12 @@ class Channel(Base):
     time = Column(TIMESTAMP, server_default=text("current_timestamp"))
 
 
-class Manage(Base):
+class Manages(Base):
     __tablename__ = 'manages'
 
     id = Column(Integer, primary_key=True)
     username = Column(String(255), nullable=False)
-    password = Column(String(255), nullable=False)
+    password = Column(Text, nullable=False)
     time = Column(TIMESTAMP, server_default=text("current_timestamp"))
 
 

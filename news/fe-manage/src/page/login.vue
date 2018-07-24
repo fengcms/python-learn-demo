@@ -8,9 +8,13 @@
     <input type="button" @click='put' value="修改数据">
     <input type="button" @click='post' value="添加数据">
     <input type="button" @click='get' value="获取单条数据">
+    <input type="button" @click='getSite' value="获取站点信息">
+    <input type="button" @click='postSite' value="更新站点信息">
+    <input type="button" @click='putManages' value="更新管理员密码">
   </div>
 </template>
 <script>
+import Rsa from '@/tool/rsa'
 export default {
   data () {
     return {
@@ -27,9 +31,11 @@ export default {
   },
   methods: {
     onSubmit () {
+      let pw = Rsa(this.password)
+      console.log(pw)
       this.$api.post('login', {
         account: this.account,
-        password: this.password
+        password: pw
       }, r => {
         console.log(r)
       }, e => {
@@ -74,6 +80,33 @@ export default {
         title: '我爱你',
         channel_id: 2,
         content: '我爱你的内容'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    getSite () {
+      this.$api.get('site', null, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    postSite () {
+      this.$api.post('site', {
+        name: '文章系统'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    putManages () {
+      let pw = Rsa(this.password)
+      this.$api.put('manages', {
+        account: this.account,
+        password: pw
       }, r => {
         console.log(r)
       }, e => {

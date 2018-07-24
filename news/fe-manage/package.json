@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "jsencrypt": "^3.0.0-rc.1",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "store": "^2.0.12",
