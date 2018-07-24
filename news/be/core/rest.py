@@ -12,24 +12,24 @@ def ls (request, name):
         return ok(res)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
-    elif res == 500:
-        return fail('服务器内部错误', 500)
+    elif res == 503:
+        return fail('服务器内部错误', 503)
     else:
-        return fail('未知错误')
+        return fail('未知错误', 500)
 
 def post (request, name):
     hmupName = str2Hump(name)
     res = query.post(hmupName, request)
-    if res == 1:
+    if res == 200:
         return ok('数据添加成功')
-    elif res == 3:
-        return fail('参数错误')
+    elif res == 400:
+        return fail('参数错误', 400)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
-    elif res == 500:
-        return fail('数据添加失败')
+    elif res == 503:
+        return fail('数据添加失败', 503)
     else:
-        return fail('未知错误')
+        return fail('未知错误', 500)
 
 def get (request, name, oid):
     hmupName = str2Hump(name)
@@ -38,37 +38,37 @@ def get (request, name, oid):
         return ok(res)
     elif res == 404:
         return fail('没有查询到数据', 404)
-    elif res == 500:
-        return fail('服务器内部错误', 500)
+    elif res == 503:
+        return fail('服务器内部错误', 503)
     else:
-        return fail('未知错误')
+        return fail('未知错误', 500)
 
 def put (request, name, oid):
     hmupName = str2Hump(name)
     res = query.put(hmupName, oid, request)
-    if res == 1:
+    if res == 200:
         return ok('更新成功')
-    elif res == 2:
-        return fail('没有这条数据')
-    elif res == 3:
-        return fail('参数错误')
+    elif res == 4042:
+        return fail('没有这条数据', 404)
+    elif res == 400:
+        return fail('参数错误', 400)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
-    elif res == 500:
-        return fail('服务器内部错误', 500)
+    elif res == 503:
+        return fail('服务器内部错误', 503)
     else:
-        return fail('未知错误')
+        return fail('未知错误', 500)
 
 def delete (request, name, oid):
     hmupName = str2Hump(name)
     res = query.delete(hmupName, oid)
-    if res == 1:
+    if res == 200:
         return ok('删除成功')
-    elif res == 2:
-        return fail('没有这条数据')
+    elif res == 400:
+        return fail('没有这条数据', 400)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
-    elif res == 500:
-        return fail('服务器内部错误', 500)
+    elif res == 503:
+        return fail('服务器内部错误', 503)
     else:
-        return fail('未知错误')
+        return fail('未知错误', 500)

@@ -8,8 +8,8 @@ import base64
 def ok(data):
     return json({"data": data, "status": 0})
 
-def fail(data, status=200):
-    return json({"data": data, "status": 1}, status=status)
+def fail(data, httpCode=200):
+    return json({"data": data, "status": 1}, status=httpCode)
 
 def checkParam(params, req):
     if not isinstance(params, list):

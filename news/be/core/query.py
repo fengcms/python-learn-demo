@@ -49,7 +49,7 @@ def ls(className):
                 arr.append(getDict(i))
         return arr
     except Exception as e:
-        return 500
+        return 503
 
 def post(className, Data):
     if not hasClass(className):
@@ -61,14 +61,14 @@ def post(className, Data):
             if i in modelDict:
                 modelDict[i] = Data[i]
             else:
-                return 3
+                return 400
 
         newData = classModel(**modelDict)
         session.add(newData)
         session.commit()
-        return 1 
+        return 200
     except Exception as e:
-        return 500
+        return 503
 
 def get(className, id):
     if not hasClass(className):
@@ -80,7 +80,7 @@ def get(className, id):
         res = res.one()
         return getDict(res)
     except Exception as e:
-        return 500
+        return 503
 
 def put(className, id, data):
     if not hasClass(className):
@@ -92,16 +92,16 @@ def put(className, id, data):
             oldData = getDict(res)
             for i in data:
                 if i not in oldData:
-                    return 3
+                    return 400
                 setattr(res, i, data[i])
 
             session.add(res)
             session.commit()
-            return 1
+            return 200
         else:
-            return 2 
+            return 4042 
     except Exception as e:
-        return 500
+        return 503
 
 def delete(className, id):
     if not hasClass(className):
@@ -112,8 +112,8 @@ def delete(className, id):
         if res:
             session.delete(res)
             session.commit()
-            return 1
+            return 200
         else:
-            return 2 
+            return 400
     except Exception as e:
-        return 500
+        return 503
