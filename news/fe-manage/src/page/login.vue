@@ -2,8 +2,10 @@
   <div>
     <input type="text" v-model="account"> <br>
     <input type="text" v-model="password"> <br>
+    <input type="text" v-model="new_password"> <br>
     <input type="button" @click='onSubmit' value="提交">
     <input type="button" @click='logout' value="退出">
+    <input type="button" @click='getList' value="获取文章列表">
     <input type="button" @click='del' value="删除数据">
     <input type="button" @click='put' value="修改数据">
     <input type="button" @click='post' value="添加数据">
@@ -19,17 +21,25 @@ export default {
   data () {
     return {
       account: 'admin',
-      password: '123456'
+      password: '123456',
+      new_password: '1445667'
     }
   },
   created () {
-    this.$api.get('article', null, r => {
-      console.log(r)
-    }, e => {
-      console.log(e)
-    })
+    this.getList()
   },
   methods: {
+    getList () {
+      this.$api.get('article', {
+        page: 0,
+        pagesize: 10,
+        sort: '-id'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
     onSubmit () {
       let pw = Rsa(this.password)
       console.log(pw)
@@ -52,7 +62,7 @@ export default {
       })
     },
     del () {
-      this.$api.delete('article/4', null, r => {
+      this.$api.delete('article/4', {love: 1}, r => {
         console.log(r)
       }, e => {
         console.log(e)
@@ -104,9 +114,11 @@ export default {
     },
     putManages () {
       let pw = Rsa(this.password)
-      this.$api.put('manages', {
+      let npw = Rsa(this.new_password)
+      this.$api.get('manages', {
         account: this.account,
-        password: pw
+        old_password: pw,
+        new_password: npw
       }, r => {
         console.log(r)
       }, e => {

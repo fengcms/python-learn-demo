@@ -2,8 +2,8 @@
 # -*- coding: UTF-8 -*-
 import json
 
-import query
-from tool import ok, fail, str2Hump
+from core import query
+from core.tool import ok, fail, str2Hump
 
 def ls (request, name):
     hmupName = str2Hump(name)
@@ -19,8 +19,7 @@ def ls (request, name):
 
 def post (request, name):
     hmupName = str2Hump(name)
-    req = json.loads(request.body)
-    res = query.post(hmupName, req)
+    res = query.post(hmupName, request)
     if res == 1:
         return ok('数据添加成功')
     elif res == 404:
@@ -44,8 +43,7 @@ def get (request, name, oid):
 
 def put (request, name, oid):
     hmupName = str2Hump(name)
-    req = json.loads(request.body)
-    res = query.put(hmupName, oid, req)
+    res = query.put(hmupName, oid, request)
     if res == 1:
         return ok('更新成功')
     elif res == 2:

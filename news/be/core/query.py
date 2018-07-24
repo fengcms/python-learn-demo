@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String, TIMESTAMP, Text, text, create_en
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import sys
-import model
+from api import model
 
 DB_PATH = 'sqlite:///' + sys.path[0] + '/news.db'
 Base = declarative_base()

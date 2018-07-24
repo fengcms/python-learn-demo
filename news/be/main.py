@@ -8,17 +8,17 @@ from sanic import Blueprint
 import json
 
 import config
-from tool import ok, fail, checkParam, str2Hump
-from session import makeSession, checkSession, clearSession, updataSession
+from core.tool import ok, fail, checkParam, str2Hump, query2Dict
+from core.session import makeSession, checkSession, clearSession, updataSession
 
-import rest
-import query
-import api
+from core import rest
+from core import query
+from api import api
 
 app = Sanic(__name__)
 FIX = config.BE_PREFIX
 ANY_API = config.ANONYMOUS_API
-bp = Blueprint('v1', url_prefix=FIX)
+bp = Blueprint('common', url_prefix=FIX)
 
 # 中间件 检查是否登录
 @app.middleware('request')
@@ -72,17 +72,22 @@ async def login(request):
 # restFul 方法列表公用类
 class listView(HTTPMethodView):
     async def get(self, request, name):
+        request = query2Dict(request.query_string)
         return rest.ls(request, name)
     async def post(self, request, name):
+        request = json.loads(request.body)
         return rest.post(request, name)
 
 # restFul 方法内容公用类
 class itemView(HTTPMethodView):
     async def get(self, request, name, oid):
+        request = query2Dict(request.query_string)
         return rest.get(request, name, oid)
     async def put(self, request, name, oid):
+        request = json.loads(request.body)
         return rest.put(request, name, oid)
     async def delete(self, request, name, oid):
+        request = query2Dict(request.query_string)
         return rest.delete(request, name, oid)
 
 
