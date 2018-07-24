@@ -4,7 +4,7 @@ import hashlib
 import time
 import os
 
-TEMPFILE = '__temp__session__'
+TEMPFILE = 'temp/__session__'
 
 def makeSession (user):
     t = str(int(time.time()))

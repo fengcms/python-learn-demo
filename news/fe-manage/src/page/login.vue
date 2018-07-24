@@ -69,7 +69,7 @@ export default {
       })
     },
     put () {
-      this.$api.put('article/17', {
+      this.$api.put('article/37', {
         title: '我爱你',
         content: '我爱你的内容'
       }, r => {
@@ -79,7 +79,7 @@ export default {
       })
     },
     get () {
-      this.$api.get('article/17', null, r => {
+      this.$api.get('article/37', null, r => {
         console.log(r)
       }, e => {
         console.log(e)
@@ -115,7 +115,7 @@ export default {
     putManages () {
       let pw = Rsa(this.password)
       let npw = Rsa(this.new_password)
-      this.$api.get('manages', {
+      this.$api.put('manages', {
         account: this.account,
         old_password: pw,
         new_password: npw

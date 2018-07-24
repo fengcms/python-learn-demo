@@ -7,7 +7,7 @@ from sanic import Blueprint
 import json
 
 import config
-from core.tool import ok, fail, checkParam, str2Hump, query2Dict
+from core.tool import ok, fail, checkParam, str2Hump, query2Dict, rsaDecrypt
 from core.session import makeSession, checkSession, clearSession, updataSession
 
 from core import rest
@@ -17,6 +17,8 @@ from api import api
 app = Sanic(__name__)
 FIX = config.BE_PREFIX
 ANY_API = config.ANONYMOUS_API
+KEY_PATH = config.PRIVATE_KEY_PATH
+
 bp = Blueprint('core', url_prefix=FIX)
 
 # 中间件 检查是否登录
@@ -61,11 +63,32 @@ async def logout(request):
 async def login(request):
     req = json.loads(request.body)
     checkParam(['account', 'password'], req)
-    session = makeSession(req['account'])
-    res = ok('登录成功')
-    res.cookies['session'] = session
-    res.cookies['session']['httponly'] = True
-    return  res
+    accRes = json.loads(rest.get({}, 'manages', 1).body)
+    if accRes['status'] == 0:
+        acc = accRes['data']
+        accPw = rsaDecrypt(KEY_PATH, acc['password']) 
+        reqPw = rsaDecrypt(KEY_PATH, req['password']) 
+        reqPwLen = len(reqPw)
+        if req['account'] != acc['username']:
+            res = fail('用户名不正确')
+            del res.cookies['session']
+            return res
+        elif accPw != reqPw:
+            res =  fail('密码不正确')
+            del res.cookies['session']
+            return res
+        elif reqPwLen < 6 or reqPwLen > 16:
+            res =  fail('密码长度为 6-16 位')
+            del res.cookies['session']
+            return res
+        else:
+            session = makeSession(req['account'])
+            res = ok('登录成功')
+            res.cookies['session'] = session
+            res.cookies['session']['httponly'] = True
+            return res
+    else:
+        return fail('服务器内部错误', 500)
 
 
 # restFul 方法列表公用类

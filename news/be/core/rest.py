@@ -22,6 +22,8 @@ def post (request, name):
     res = query.post(hmupName, request)
     if res == 1:
         return ok('数据添加成功')
+    elif res == 3:
+        return fail('参数错误')
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
     elif res == 500:

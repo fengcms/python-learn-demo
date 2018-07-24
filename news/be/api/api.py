@@ -5,7 +5,7 @@ import json
 import re
 
 import config
-import core.rest
+from core import rest
 from core.tool import ok, fail, rsaDecrypt, checkParam
 
 FIX = config.BE_PREFIX
@@ -40,7 +40,7 @@ async def manages(request):
 
     # 获取存储密码
     saveManage = json.loads(rest.get(request, 'manages', 1).body)['data']
-    savePw = rsaDecrypt(PRI_K_P, saveManage['password'])
+    savePw = rsaDecrypt(KEY_PATH, saveManage['password'])
     if oldPw != savePw:
         return fail('原密码不正确')
 

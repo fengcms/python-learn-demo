@@ -29,6 +29,13 @@ def hasClass(className):
     except Exception as e:
         return False
 
+def getFieldDict(Obj):
+    res = {}
+    for i in dir(Obj):
+        if i[0] != '_' and i != 'id' and i != 'time':
+            res[i] = ''
+    return res
+
 def ls(className):
     if not hasClass(className):
         return 404
@@ -49,7 +56,14 @@ def post(className, Data):
         return 404
     try:
         classModel = getattr(model, className)
-        newData = classModel(**Data)
+        modelDict = getFieldDict(classModel)
+        for i in Data:
+            if i in modelDict:
+                modelDict[i] = Data[i]
+            else:
+                return 3
+
+        newData = classModel(**modelDict)
         session.add(newData)
         session.commit()
         return 1 
