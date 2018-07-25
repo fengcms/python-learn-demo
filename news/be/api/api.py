@@ -7,7 +7,7 @@ import re
 import config
 from core import rest
 from core.tool import ok, fail, rsaDecrypt, checkParam
-from core.session import makeSession, checkSession, clearSession, updataSession
+from core.session import makeSession, checkSession, clearSession
 
 FIX = config.BE_PREFIX
 
