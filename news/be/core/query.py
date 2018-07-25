@@ -4,9 +4,9 @@ from sqlalchemy import Column, Integer, String, TIMESTAMP, Text, text, create_en
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import sys
-from api import model
+from db import model
 
-DB_PATH = 'sqlite:///' + sys.path[0] + '/news.db'
+DB_PATH = 'sqlite:///' + sys.path[0] + '/db/news.db'
 Base = declarative_base()
 metadata = Base.metadata
 

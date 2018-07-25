@@ -7,12 +7,57 @@ import re
 import config
 from core import rest
 from core.tool import ok, fail, rsaDecrypt, checkParam
+from core.session import makeSession, checkSession, clearSession, updataSession
 
 FIX = config.BE_PREFIX
 
 KEY_PATH = config.PRIVATE_KEY_PATH
 
 bp = Blueprint('news', url_prefix=FIX)
+
+# 登出处理
+@bp.get("logout")
+async def logout(request):
+    session = request.cookies.get('session')
+    res = fail('退出失败', 401)
+    cs = checkSession(session)
+    if cs == 0:
+        clearSession()
+        res = ok('退出成功')
+    del res.cookies['session']
+    return res
+
+# 登录处理
+@bp.route("login", methods=['POST'])
+async def login(request):
+    req = json.loads(request.body)
+    checkParam(['account', 'password'], req)
+    accRes = json.loads(rest.get({}, 'manages', 1).body)
+    if accRes['status'] == 0:
+        acc = accRes['data']
+        accPw = rsaDecrypt(KEY_PATH, acc['password'])
+        reqPw = rsaDecrypt(KEY_PATH, req['password'])
+        reqPwLen = len(reqPw)
+        if req['account'] != acc['username']:
+            res = fail('用户名不正确')
+            del res.cookies['session']
+            return res
+        elif accPw != reqPw:
+            res =  fail('密码不正确')
+            del res.cookies['session']
+            return res
+        elif reqPwLen < 6 or reqPwLen > 16:
+            res =  fail('密码长度为 6-16 位')
+            del res.cookies['session']
+            return res
+        else:
+            session = makeSession(req['account'])
+            res = ok('登录成功')
+            res.cookies['session'] = session
+            res.cookies['session']['httponly'] = True
+            return res
+    else:
+        return fail('服务器内部错误', 500)
 
 @bp.route('site', methods=['POST', 'GET'])
 async def site(request):
