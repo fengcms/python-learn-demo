@@ -14,6 +14,8 @@ from core.session import checkSession, updataSession
 
 from core import rest
 from core import query
+from core.process import process
+
 from api import api
 
 import pre_process
@@ -69,38 +71,22 @@ def returnNotFound (request, exception):
 class listView(HTTPMethodView):
     async def get(self, request, name):
         request = query2Dict(request.query_string)
-        # 对参数进行前处理
-        if dir(app.pre_process.get(name)).count('ls') == 1:
-            request = await app.pre_process.get(name).ls(request)
-            # 如果返回的不是处理的字典参数，就直接return结果
-            if not isinstance(request, dict):
-                return request
-        # 得到查询结果
-        response = rest.ls(request, name)
-        resBody = json.loads(response.body)
-        resStatus = response.status
-        # 根据返回结果判断是否需要后处理(错误状态就不处理了)
-        if resStatus == 200 and resBody['status'] == 0:
-            if dir(app.post_process.get(name)).count('ls') == 1:
-                data = await app.post_process.get(name).ls(resBody['data'])
-            return ok(data)
-        else:
-            return response
+        return await process(app, name, request, 'ls')
     async def post(self, request, name):
         request = request.json
-        return rest.post(request, name)
+        return await process(app, name, request, 'post')
 
 # restFul 方法内容公用类
 class itemView(HTTPMethodView):
     async def get(self, request, name, oid):
         request = query2Dict(request.query_string)
-        return rest.get(request, name, oid)
+        return await process(app, name, request, 'get', oid)
     async def put(self, request, name, oid):
-        request = json.loads(request.body)
-        return rest.put(request, name, oid)
+        request = request.json
+        return await process(app, name, request, 'put', oid)
     async def delete(self, request, name, oid):
         request = query2Dict(request.query_string)
-        return rest.delete(request, name, oid)
+        return await process(app, name, request, 'delete', oid)
 
 
 app.blueprint(bp)

@@ -4,3 +4,7 @@ from core.tool import ok, fail, checkParam, query2Dict
 
 async def ls (response):
     return response
+
+async def get (response):
+    print(11)
+    return response
