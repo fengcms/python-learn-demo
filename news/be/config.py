@@ -12,3 +12,4 @@ PUBLIC_KEY_PATH = './key/public.pem'
 PRIVATE_KEY_PATH = './key/private.pem'
 
 PORT = 9000
+PAGESIZE = 10

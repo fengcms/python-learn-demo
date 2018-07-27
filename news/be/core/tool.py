@@ -4,9 +4,13 @@ from sanic.response import json
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as CPK
 import base64
+from urllib.parse import unquote
 
-def ok(data):
-    return json({"data": data, "status": 0})
+def ok(data, total = None):
+    if isinstance(data, list):
+        return json({'data': {'list': data, 'total': total}, 'status': 0})
+    else:
+        return json({"data": data, "status": 0})
 
 def fail(data, httpCode=200):
     return json({"data": data, "status": 1}, status=httpCode)
@@ -30,6 +34,8 @@ def str2Hump(text):
 
 def query2Dict(text):
     try:
+        text = unquote(text)
+        print([i.split('=') for i in text.split('&')])
         obj = dict([i.split('=') for i in text.split('&')]) 
         return obj
     except Exception as e:

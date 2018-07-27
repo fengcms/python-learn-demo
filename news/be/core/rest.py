@@ -9,7 +9,9 @@ def ls (request, name):
     hmupName = str2Hump(name)
     res = query.ls(hmupName, request)
     if isinstance(res, dict):
-        return ok(res)
+        return ok(res['list'], res['total'])
+    elif res == 400:
+        return fail('参数错误', 400)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
     elif res == 503:

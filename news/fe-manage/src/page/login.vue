@@ -33,7 +33,7 @@ export default {
       this.$api.get('article', {
         page: 0,
         pagesize: 10,
-        sort: '-id'
+        sort: '-channel_id,id'
       }, r => {
         console.log(r)
       }, e => {
