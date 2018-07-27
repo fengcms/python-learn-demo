@@ -32,7 +32,7 @@ async def logout(request):
 async def login(request):
     req = json.loads(request.body)
     checkParam(['account', 'password'], req)
-    accRes = json.loads(rest.get({}, 'manages', 1).body)
+    accRes = json.loads(rest.get({}, 'manages', 'first').body)
     if accRes['status'] == 0:
         acc = accRes['data']
         accPw = rsaDecrypt(KEY_PATH, acc['password'])
@@ -57,18 +57,19 @@ async def login(request):
             res.cookies['session']['httponly'] = True
             return res
     else:
-        return fail('服务器内部错误', 500)
+        return fail('服务器内部错误', 503)
 
 @bp.route('site', methods=['POST', 'GET'])
 async def site(request):
     M = request.method
     if M == 'GET':
-        return rest.get(request, 'site', 1)
+        return rest.get(request, 'site', 'first')
     elif M == 'POST':
         request = json.loads(request.body)
-        return rest.put(request, 'site', 1)
+        return rest.put(request, 'site', 'first')
     else:
         return fail('不被允许的请求方法', 405)
+
 @bp.route('manages', methods=['PUT'])
 async def manages(request):
     req = json.loads(request.body)

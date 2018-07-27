@@ -7,8 +7,8 @@ from core.tool import ok, fail, str2Hump
 
 def ls (request, name):
     hmupName = str2Hump(name)
-    res = query.ls(hmupName)
-    if isinstance(res, list):
+    res = query.ls(hmupName, request)
+    if isinstance(res, dict):
         return ok(res)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
@@ -34,10 +34,15 @@ def post (request, name):
 def get (request, name, oid):
     hmupName = str2Hump(name)
     res = query.get(hmupName, oid)
+    print(res)
     if isinstance(res, dict):
         return ok(res)
     elif res == 404:
-        return fail('没有查询到数据', 404)
+        return fail('数据库中没有' + name + '这个表', 404)
+    elif res == 4042:
+        return fail('没有这条数据', 404)
+    elif res == 4043:
+        return fail(name + '数据库中没有数据', 404)
     elif res == 503:
         return fail('服务器内部错误', 503)
     else:
@@ -48,12 +53,14 @@ def put (request, name, oid):
     res = query.put(hmupName, oid, request)
     if res == 200:
         return ok('更新成功')
-    elif res == 4042:
-        return fail('没有这条数据', 404)
     elif res == 400:
         return fail('参数错误', 400)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
+    elif res == 4042:
+        return fail('没有这条数据', 404)
+    elif res == 4043:
+        return fail(name + '数据库中没有数据', 404)
     elif res == 503:
         return fail('服务器内部错误', 503)
     else:
