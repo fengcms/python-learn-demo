@@ -36,7 +36,6 @@ def post (request, name):
 def get (request, name, oid):
     hmupName = str2Hump(name)
     res = query.get(hmupName, oid)
-    print(res)
     if isinstance(res, dict):
         return ok(res)
     elif res == 404:

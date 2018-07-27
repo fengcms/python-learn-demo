@@ -6,5 +6,4 @@ async def ls (response):
     return response
 
 async def get (response):
-    print(11)
     return response

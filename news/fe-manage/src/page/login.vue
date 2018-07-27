@@ -12,7 +12,8 @@
     <input type="button" @click='get' value="获取单条数据">
     <input type="button" @click='getSite' value="获取站点信息">
     <input type="button" @click='postSite' value="更新站点信息">
-    <input type="button" @click='putManages' value="更新管理员密码">
+    <input type="button" @click='putManages' value="更新管理员密码"><br>
+    <input type="file" @change='upload'>
   </div>
 </template>
 <script>
@@ -22,7 +23,8 @@ export default {
     return {
       account: 'admin',
       password: '123456',
-      new_password: '1445667'
+      new_password: '1445667',
+      img: ''
     }
   },
   created () {
@@ -124,6 +126,41 @@ export default {
       }, e => {
         console.log(e)
       })
+    },
+    upload (e) {
+      let v = this
+      var xhr = new XMLHttpRequest()
+      xhr.withCredentials = true
+      xhr.open('POST', this.$api.root() + 'upload')
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          let r = JSON.parse(this.responseText)
+          if (r.code === 0) {
+            v.imgUrl = r.data.url
+            v.$emit('input', v.imgUrl)
+            v.progress = null
+          } else {
+            v.progress = null
+            window.alert(r.msg)
+          }
+        // 上传成功
+        } else {
+        // 处理其他情况
+        }
+      }
+      xhr.onerror = function () {
+        // 处理错误
+      }
+      xhr.upload.onprogress = function (e) {
+        // 上传进度
+        if (e.lengthComputable) {
+          v.progress = ~~(e.loaded / e.total)
+        }
+      }
+      let fd = new FormData()
+      fd.append('file', e.target.files[0])
+      // 添加参数和触发上传
+      xhr.send(fd)
     }
   }
 }

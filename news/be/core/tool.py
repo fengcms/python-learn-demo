@@ -35,7 +35,6 @@ def str2Hump(text):
 def query2Dict(text):
     try:
         text = unquote(text)
-        print([i.split('=') for i in text.split('&')])
         obj = dict([i.split('=') for i in text.split('&')]) 
         return obj
     except Exception as e:
