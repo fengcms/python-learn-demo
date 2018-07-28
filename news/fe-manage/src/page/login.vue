@@ -6,6 +6,7 @@
     <input type="button" @click='onSubmit' value="提交">
     <input type="button" @click='logout' value="退出">
     <input type="button" @click='getList' value="获取文章列表">
+    <input type="button" @click='search' value="搜索文章列表">
     <input type="button" @click='del' value="删除数据">
     <input type="button" @click='put' value="修改数据">
     <input type="button" @click='post' value="添加数据">
@@ -36,6 +37,15 @@ export default {
         page: 0,
         pagesize: 10,
         sort: '-channel_id,id'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    search () {
+      this.$api.get('article', {
+        'title-like': '猪'
       }, r => {
         console.log(r)
       }, e => {
@@ -89,7 +99,7 @@ export default {
     },
     post () {
       this.$api.post('article', {
-        title: '我爱你',
+        title: '猪八戒',
         channel_id: 2,
         content: '我爱你的内容'
       }, r => {

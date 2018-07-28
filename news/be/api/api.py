@@ -86,14 +86,15 @@ async def manages(request):
         return fail('密码只能是大小写字母加数字以及下划线的组合')
 
     # 获取存储密码
-    saveManage = json.loads(rest.get(request, 'manages', 1).body)['data']
+    saveManage = json.loads(rest.get(request, 'manages', 'first').body)['data']
+    saveId = saveManage['id']
     savePw = rsaDecrypt(KEY_PATH, saveManage['password'])
     if oldPw != savePw:
         return fail('原密码不正确')
 
     # 提交密码
     r = {'username': req['account'], 'password': req['new_password']}
-    return rest.put(r, 'manages', 1)
+    return rest.put(r, 'manages', saveId)
 
 # 上传文件接口特殊处理
 @bp.route('upload', methods=['POST'])

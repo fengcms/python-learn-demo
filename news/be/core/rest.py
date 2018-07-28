@@ -15,9 +15,9 @@ def ls (request, name):
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
     elif res == 503:
-        return fail('服务器内部错误', 503)
+        return fail('数据查询失败', 503)
     else:
-        return fail('未知错误', 500)
+        return fail('服务器内部错误', 500)
 
 def post (request, name):
     hmupName = str2Hump(name)
@@ -31,7 +31,7 @@ def post (request, name):
     elif res == 503:
         return fail('数据添加失败', 503)
     else:
-        return fail('未知错误', 500)
+        return fail('服务器内部错误', 500)
 
 def get (request, name, oid):
     hmupName = str2Hump(name)
@@ -45,9 +45,9 @@ def get (request, name, oid):
     elif res == 4043:
         return fail(name + '数据库中没有数据', 404)
     elif res == 503:
-        return fail('服务器内部错误', 503)
+        return fail('数据查询失败', 503)
     else:
-        return fail('未知错误', 500)
+        return fail('服务器内部错误', 500)
 
 def put (request, name, oid):
     hmupName = str2Hump(name)
@@ -63,9 +63,9 @@ def put (request, name, oid):
     elif res == 4043:
         return fail(name + '数据库中没有数据', 404)
     elif res == 503:
-        return fail('服务器内部错误', 503)
+        return fail('数据更新失败', 503)
     else:
-        return fail('未知错误', 500)
+        return fail('服务器内部错误', 500)
 
 def delete (request, name, oid):
     hmupName = str2Hump(name)
@@ -77,6 +77,6 @@ def delete (request, name, oid):
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
     elif res == 503:
-        return fail('服务器内部错误', 503)
+        return fail('数据删除失败', 503)
     else:
-        return fail('未知错误', 500)
+        return fail('服务器内部错误', 500)

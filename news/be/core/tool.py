@@ -25,6 +25,11 @@ def checkParam(params, req):
         if not i in req:
             return fail('参数错误')
 
+def isInt(num):
+    if not isinstance(num, int) and not num.isdigit():
+        return False
+    return True
+
 def str2Hump(text):
     arr = text.lower().split('_')
     res = ''

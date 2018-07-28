@@ -35,6 +35,7 @@ class Channel(Base):
     __tablename__ = 'channels'
 
     id = Column(Integer, primary_key=True)
+    pid = Column(Integer)
     name = Column(String(255), nullable=False)
     time = Column(TIMESTAMP, server_default=text("current_timestamp"))
 
