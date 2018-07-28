@@ -42,7 +42,7 @@ async def registerModule(app, loop):
         app.post_process[modname] = m
 
 # 中间件 检查是否登录
-@app.middleware('request')
+@bp.middleware('request')
 async def checkLogin(request):
     status = True
     url = request.url.split(FIX)[1].split('/')[0]
@@ -62,10 +62,36 @@ async def checkLogin(request):
             updataSession(session)
 
 # 处理 404 页面
-@bp.exception(NotFound)
+@app.exception(NotFound)
 def returnNotFound (request, exception):
     return fail(request.url + '没有找到', 404)
 
+# @bp.route('<name>', methods=['GET', 'POST'])
+# async def restList(request, name):
+#     M = request.method
+#     if M == 'GET':
+#         request = query2Dict(request.query_string)
+#         return await process(app, name, request, 'ls')
+#     elif M == 'POST':
+#         request = request.json
+#         return await process(app, name, request, 'post')
+#     else:
+#         return fail('不被允许的请求方法', 405)
+# 
+# @bp.route('<name>/<oid>', methods=['GET', 'POST'])
+# async def restList(request, name, oid):
+#     M = request.method
+#     if M == 'GET':
+#         request = query2Dict(request.query_string)
+#         return await process(app, name, request, 'get', oid)
+#     elif M == 'PUT':
+#         request = request.json
+#         return await process(app, name, request, 'put', oid)
+#     elif M == 'DELETE':
+#         request = query2Dict(request.query_string)
+#         return await process(app, name, request, 'delete', oid)
+#     else:
+#         return fail('不被允许的请求方法', 405)
 # restFul 方法列表公用类
 class listView(HTTPMethodView):
     async def get(self, request, name):
@@ -88,6 +114,6 @@ class itemView(HTTPMethodView):
         return await process(app, name, request, 'delete', oid)
 
 
+bp.add_route(listView.as_view(), '<name>')
+bp.add_route(itemView.as_view(), '<name>/<oid>')
 app.blueprint(bp)
-app.add_route(listView.as_view(), FIX + '<name>')
-app.add_route(itemView.as_view(), FIX + '<name>/<oid>')
