@@ -62,13 +62,13 @@ class Site(Base):
 metadata.create_all(engine)
 
 # 如果没有默认管理员，则添加上(默认密码123456)
-if len(session.query(Manages).filter(Manages.id=='1').all()) == 0:
+if len(session.query(Manages).all()) == 0:
     defManage = Manages(username = 'admin', password = rsaEncrypt(KEY_PATH, '123456'))
     session.add(defManage)
     session.commit()
 
 # 如果没有默认网站信息，则添加上
-if len(session.query(Site).filter(Site.id=='1').all()) == 0:
+if len(session.query(Site).all()) == 0:
     defSite = Site(name = '网站名称', title = '网站标题', copyright = '网站版权', logo = '')
     session.add(defSite)
     session.commit()

@@ -97,10 +97,12 @@ def ls(className, request):
         # 支持多重条件排序，用英文逗号分隔
         sortArr = sort.split(',')
         for i in sortArr:
-            ## 根据排序参数第一个字符是否是中划线确定是正序还是倒序，为假倒序
-            field = getattr(classModel, sortField)
+            # 根据排序参数第一个字符是否是中划线确定是正序还是倒序，为假倒序
             sortType = i[0] == '-'
             sortField = i[1:] if sortType else i
+
+            field = getattr(classModel, sortField)
+
             if not sortField in modelList:
                 return 400
             if sortType:
@@ -136,6 +138,7 @@ def ls(className, request):
         return {'list': arr, 'total': total}
 
     except Exception as e:
+        print(e)
         return 503
 
 # 添加新数据方法
