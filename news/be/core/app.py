@@ -48,6 +48,10 @@ class listView(HTTPMethodView):
         return await process(app, name, request, 'ls')
     async def post(self, request, name):
         request = request.json
+        if 'batch_additon' in request and isinstance(request['batch_additon'], list):
+            request = {'data': request['batch_additon']}
+        else:
+            request = {'data': [request]}
         return await process(app, name, request, 'post')
 
 # restFul 方法内容公用类

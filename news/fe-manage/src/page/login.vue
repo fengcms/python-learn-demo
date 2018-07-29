@@ -10,6 +10,7 @@
     <input type="button" @click='del' value="删除数据">
     <input type="button" @click='put' value="修改数据">
     <input type="button" @click='post' value="添加数据">
+    <input type="button" @click='postMore' value="添加多条数据">
     <input type="button" @click='get' value="获取单条数据">
     <input type="button" @click='getSite' value="获取站点信息">
     <input type="button" @click='postSite' value="更新站点信息">
@@ -74,7 +75,7 @@ export default {
       })
     },
     del () {
-      this.$api.delete('article/4', {love: 1}, r => {
+      this.$api.delete('article/38', {love: 1}, r => {
         console.log(r)
       }, e => {
         console.log(e)
@@ -102,6 +103,23 @@ export default {
         title: '猪八戒',
         channel_id: 2,
         content: '我爱你的内容'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    postMore () {
+      this.$api.post('article', {
+        batch_additon: [{
+          title: '猪八戒',
+          channel_id: 2,
+          content: '我爱你的内容'
+        }, {
+          title: '孙悟空',
+          channel_id: 1,
+          content: '我爱你的内容'
+        }]
       }, r => {
         console.log(r)
       }, e => {

@@ -142,28 +142,30 @@ def ls(className, request):
         return 503
 
 # 添加新数据方法
-def post(className, Data):
+def post(className, request):
     if not hasClass(className):
         return 404
     try:
         classModel = getattr(model, className)
         modelDict = getFieldDict(classModel)
-        for i in Data:
-            if i in modelDict:
-                modelDict[i] = Data[i]
-            else:
-                return 400
-
-        newData = classModel(**modelDict)
-        session.add(newData)
-        session.flush()
-        session.commit()
+        resIds = []
+        for Data in request['data']:
+            for i in Data:
+                if i in modelDict:
+                    modelDict[i] = Data[i]
+                else:
+                    return 400
+            newData = classModel(**modelDict)
+            session.add(newData)
+            session.flush()
+            session.commit()
+            resIds.append(newData.id)
         # 将自增ID返回
-        return {'id': newData.id}
+        return {'id': resIds}
     except Exception as e:
         return 503
 
-# 查询单挑数据方法
+# 查询单条数据方法
 def get(className, oid):
     if not hasClass(className):
         return 404
@@ -187,7 +189,7 @@ def get(className, oid):
     except Exception as e:
         return 503
 
-# 修改单挑数据方法
+# 修改单条数据方法
 def put(className, oid, data):
     if not hasClass(className):
         return 404
@@ -217,18 +219,35 @@ def put(className, oid, data):
     except Exception as e:
         return 503
 
-# 删除单挑数据方法
+# 删除数据方法
+'''
+支持多条数据删除，多条数据删除只需要传多个ID参数即可
+单条示例 xxx/1
+多条示例 xxx/1,2,3,4,5
+返回结果为一个对象，包含俩数组
+success 返回成功删除的的id序列
+fail 返回删除失败的id序列
+如果成功列表长度为 0 则返回参数错误
+'''
 def delete(className, oid):
     if not hasClass(className):
         return 404
+    idArr = oid.split(',')
+    succIds = []
+    failIds = []
     try:
         classModel = getattr(model, className)
-        res = session.query(classModel).get(oid)
-        if res:
-            session.delete(res)
-            session.commit()
-            return 200
-        else:
+        for i in idArr:
+            res = session.query(classModel).get(i)
+            if res:
+                session.delete(res)
+                session.commit()
+                succIds.append(i)
+            else:
+                failIds.append(i)
+        if len(succIds) == 0:
             return 400
+        else:
+            return {'success': succIds, 'fail': failIds}
     except Exception as e:
         return 503

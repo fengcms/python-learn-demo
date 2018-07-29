@@ -22,6 +22,7 @@ def ls (request, name):
 def post (request, name):
     hmupName = str2Hump(name)
     res = query.post(hmupName, request)
+    print(res)
     if isinstance(res, dict):
         return ok(res)
     elif res == 400:
@@ -70,10 +71,10 @@ def put (request, name, oid):
 def delete (request, name, oid):
     hmupName = str2Hump(name)
     res = query.delete(hmupName, oid)
-    if res == 200:
-        return ok('删除成功')
+    if isinstance(res, dict):
+        return ok(res)
     elif res == 400:
-        return fail('没有这条数据', 400)
+        return fail('您要删除的数据不存在', 400)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
     elif res == 503:
