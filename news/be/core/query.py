@@ -156,8 +156,10 @@ def post(className, Data):
 
         newData = classModel(**modelDict)
         session.add(newData)
+        session.flush()
         session.commit()
-        return 200
+        # 将自增ID返回
+        return {'id': newData.id}
     except Exception as e:
         return 503
 

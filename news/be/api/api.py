@@ -6,13 +6,39 @@ import re
 import hashlib
 import os
 
-from core import rest
+from core import rest, app
+from core.app import listView, itemView
 from core.tool import ok, fail, rsaDecrypt, checkParam
-from core.session import makeSession, checkSession, clearSession
+from core.session import makeSession, checkSession, clearSession, updataSession
 
-from config import BE_PREFIX as FIX, PRIVATE_KEY_PATH as KEY_PATH, UPLOAD_PATH, SUPPORT_TYPE
+from config import BE_PREFIX as FIX, PRIVATE_KEY_PATH as KEY_PATH,\
+		UPLOAD_PATH, SUPPORT_TYPE, ANONYMOUS_API as ANY_API
 
 bp = Blueprint('news', url_prefix=FIX)
+
+# 加载默认 rest 接口生成路由
+bp.add_route(listView.as_view(), '<name>')
+bp.add_route(itemView.as_view(), '<name>/<oid>')
+
+# 中间件 检查是否登录
+@bp.middleware('request')
+async def checkLogin(request):
+    status = True
+    url = request.url.split(FIX)[1].split('/')[0]
+    for i in ANY_API:
+        if i == url:
+            status = False
+    if status:
+        session = request.cookies.get('session')
+        cs = checkSession(session)
+        if cs == 1:
+            return fail('没有权限', 401)
+        elif cs == 2:
+            return fail('登录超时', 401)
+        elif cs == 4:
+            return fail('请重新登录', 401)
+        elif cs == 0:
+            updataSession(session)
 
 # 登出处理
 @bp.get("logout")

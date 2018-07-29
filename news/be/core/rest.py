@@ -22,8 +22,8 @@ def ls (request, name):
 def post (request, name):
     hmupName = str2Hump(name)
     res = query.post(hmupName, request)
-    if res == 200:
-        return ok('数据添加成功')
+    if isinstance(res, dict):
+        return ok(res)
     elif res == 400:
         return fail('参数错误', 400)
     elif res == 404:

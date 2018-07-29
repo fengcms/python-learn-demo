@@ -7,9 +7,7 @@ from sanic.exceptions import NotFound
 from sanic.views import HTTPMethodView
 from sanic import Blueprint
 
-import config
 from core.tool import ok, fail, query2Dict
-from core.session import checkSession, updataSession
 
 from core import rest
 from core import query
@@ -21,77 +19,28 @@ import pre_process
 import post_process
 
 app = Sanic(__name__)
-FIX = config.BE_PREFIX
-ANY_API = config.ANONYMOUS_API
-KEY_PATH = config.PRIVATE_KEY_PATH
-
-bp = Blueprint('core', url_prefix=FIX)
-
 
 @app.listener('before_server_start')
 async def registerModule(app, loop):
     # 动态加载前处理模块
     app.pre_process = {}
     for importer, modname, ispkg in pkgutil.iter_modules(pre_process.__path__):
-        m = importer.find_module('pre_process.' + modname).load_module('pre_process.' + modname)
+        m = importer.find_module('pre_process.' + modname)\
+                .load_module('pre_process.' + modname)
         app.pre_process[modname] = m
     # 动态加载后处理模块
     app.post_process = {}
     for importer, modname, ispkg in pkgutil.iter_modules(post_process.__path__):
-        m = importer.find_module('post_process.' + modname).load_module('post_process.' + modname)
+        m = importer.find_module('post_process.' + modname)\
+                .load_module('post_process.' + modname)
         app.post_process[modname] = m
 
-# 中间件 检查是否登录
-@bp.middleware('request')
-async def checkLogin(request):
-    status = True
-    url = request.url.split(FIX)[1].split('/')[0]
-    for i in ANY_API:
-        if i == url:
-            status = False
-    if status:
-        session = request.cookies.get('session')
-        cs = checkSession(session)
-        if cs == 1:
-            return fail('没有权限', 401)
-        elif cs == 2:
-            return fail('登录超时', 401)
-        elif cs == 4:
-            return fail('请重新登录', 401)
-        elif cs == 0:
-            updataSession(session)
 
 # 处理 404 页面
 @app.exception(NotFound)
 def returnNotFound (request, exception):
     return fail(request.url + '没有找到', 404)
 
-# @bp.route('<name>', methods=['GET', 'POST'])
-# async def restList(request, name):
-#     M = request.method
-#     if M == 'GET':
-#         request = query2Dict(request.query_string)
-#         return await process(app, name, request, 'ls')
-#     elif M == 'POST':
-#         request = request.json
-#         return await process(app, name, request, 'post')
-#     else:
-#         return fail('不被允许的请求方法', 405)
-# 
-# @bp.route('<name>/<oid>', methods=['GET', 'POST'])
-# async def restList(request, name, oid):
-#     M = request.method
-#     if M == 'GET':
-#         request = query2Dict(request.query_string)
-#         return await process(app, name, request, 'get', oid)
-#     elif M == 'PUT':
-#         request = request.json
-#         return await process(app, name, request, 'put', oid)
-#     elif M == 'DELETE':
-#         request = query2Dict(request.query_string)
-#         return await process(app, name, request, 'delete', oid)
-#     else:
-#         return fail('不被允许的请求方法', 405)
 # restFul 方法列表公用类
 class listView(HTTPMethodView):
     async def get(self, request, name):
@@ -113,7 +62,3 @@ class itemView(HTTPMethodView):
         request = query2Dict(request.query_string)
         return await process(app, name, request, 'delete', oid)
 
-
-bp.add_route(listView.as_view(), '<name>')
-bp.add_route(itemView.as_view(), '<name>/<oid>')
-app.blueprint(bp)
