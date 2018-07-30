@@ -46,7 +46,7 @@ export default {
     },
     search () {
       this.$api.get('article', {
-        'title-like': '猪'
+        'title-like': '孙'
       }, r => {
         console.log(r)
       }, e => {

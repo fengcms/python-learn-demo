@@ -6,14 +6,12 @@ from sqlalchemy.orm import sessionmaker
 
 from core.tool import rsaEncrypt
 import config
-
-DB_PATH = config.DB_CONN
-KEY_PATH = config.PUBLIC_KEY_PATH
+from config import DB_CONN, PUBLIC_KEY_PATH as KEY_PATH
 
 Base = declarative_base()
 metadata = Base.metadata
 
-engine = create_engine(DB_PATH)
+engine = create_engine(DB_CONN)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 

@@ -5,15 +5,10 @@ import pkgutil
 from sanic import Sanic
 from sanic.exceptions import NotFound
 from sanic.views import HTTPMethodView
-from sanic import Blueprint
 
-from core.tool import ok, fail, query2Dict
+from core.tool import fail, query2Dict
 
-from core import rest
-from core import query
 from core.process import process
-
-from api import api
 
 import pre_process
 import post_process

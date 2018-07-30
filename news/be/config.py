@@ -2,8 +2,11 @@
 # -*- coding: UTF-8 -*-
 import sys
 
-BE_PREFIX = '/api/v1/be/'
-FE_PREFIX = '/api/v1/fe/'
+PREFIX = {
+            'be': '/api/v1/be/',
+            'fe': '/api/v1/fe/',
+        }
+
 ANONYMOUS_API = ['login', 'logout', 'test']
 
 DB_CONN = 'sqlite:///' + sys.path[0] + '/db/news.db'

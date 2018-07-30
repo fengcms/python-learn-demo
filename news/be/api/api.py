@@ -11,8 +11,10 @@ from core.app import listView, itemView
 from core.tool import ok, fail, rsaDecrypt, checkParam
 from core.session import makeSession, checkSession, clearSession, updataSession
 
-from config import BE_PREFIX as FIX, PRIVATE_KEY_PATH as KEY_PATH,\
+from config import PREFIX, PRIVATE_KEY_PATH as KEY_PATH,\
 		UPLOAD_PATH, SUPPORT_TYPE, ANONYMOUS_API as ANY_API
+
+FIX = PREFIX['be']
 
 bp = Blueprint('news', url_prefix=FIX)
 
