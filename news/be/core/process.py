@@ -4,26 +4,30 @@ from core.tool import ok
 from core import rest
 import json
 
-import inspect
 from config import PREFIX
 
-async def process(app, name, request, url, method, oid=None):
+# 加载前后处理模块
+async def doProcess(app, name, request, query, method, oid=None):
+    # 通过配置前缀字典，获得不同前缀字符串，并替换斜杠为下划线
     for i in PREFIX:
-        if i in url:
+        if i in request.url:
             p = '_'.join(list(filter(None, PREFIX[i].split('/'))))
     
+    # 组装前后处理的不同名称
     bm = p + 'before' + name
     am = p + 'after' + name
 
+    # 进行对应前处理，非字典结果，直接抛出
     if dir(app.process[bm]).count(method) == 1:
-        request = await getattr(app.process.get(bm), method)(request)
-        if not isinstance(request, dict):
-            return request
+        query = await getattr(app.process.get(bm), method)(query)
+        if not isinstance(query, dict):
+            return query
     # 得到查询结果
     if oid == None:
-        response = getattr(rest, method)(request, name)
+        response = getattr(rest, method)(query, name)
     else:
-        response = getattr(rest, method)(request, name, oid)
+        response = getattr(rest, method)(query, name, oid)
+
     resBody = json.loads(response.body)
     resStatus = response.status
     # 根据返回结果判断是否需要后处理(错误状态就不处理了)

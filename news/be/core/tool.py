@@ -55,8 +55,8 @@ def rsaEncrypt(keypath, string):
 
 def rsaDecrypt(keypath, enCode):
     with open(keypath, 'r') as f:
-        pubkey = f.read()
-        rsaKey = RSA.importKey(pubkey)
+        prikey = f.read()
+        rsaKey = RSA.importKey(prikey)
         cipher = CPK.new(rsaKey)
         res = cipher.decrypt(base64.b64decode(enCode), "ERROR")
         return res.decode(encoding = 'utf-8')
