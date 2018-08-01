@@ -18,10 +18,11 @@ async def doProcess(app, name, request, query, method, oid=None):
     am = p + 'after' + name
 
     # 进行对应前处理，非字典结果，直接抛出
-    if dir(app.process[bm]).count(method) == 1:
-        query = await getattr(app.process.get(bm), method)(query)
-        if not isinstance(query, dict):
-            return query
+    if dir(app.process.get(bm)).count(method) == 1:
+        data = await getattr(app.process.get(bm), method)(query)
+        print(data)
+        if data:
+            return data
     # 得到查询结果
     if oid == None:
         response = getattr(rest, method)(query, name)
@@ -31,12 +32,10 @@ async def doProcess(app, name, request, query, method, oid=None):
     resBody = json.loads(response.body)
     resStatus = response.status
     # 根据返回结果判断是否需要后处理(错误状态就不处理了)
-    if resStatus == 200 and resBody['status'] == 0:
-        if dir(app.process.get(am)).count(method) == 1:
-            data = await getattr(app.process.get(am), method)(resBody['data'])
-            return ok(data)
-        else:
-            return response
+    if resStatus == 200 and resBody['status'] == 0 \
+            and dir(app.process.get(am)).count(method) == 1:
+        data = await getattr(app.process.get(am), method)(resBody['data'])
+        return ok(data)
     else:
         return response
 

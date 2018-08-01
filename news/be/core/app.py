@@ -8,9 +8,7 @@ from sanic.exceptions import NotFound
 from sanic.views import HTTPMethodView
 
 from core.tool import fail, query2Dict
-
 from core.process import doProcess
-
 from config import PREFIX
 
 app = Sanic(__name__)
@@ -75,7 +73,7 @@ class listView(HTTPMethodView):
         if 'batch_additon' in data and isinstance(data['batch_additon'], list):
             data = {'data': data['batch_additon']}
         else:
-            data = {'data': [request]}
+            data = {'data': [data]}
         return await doProcess(app, name, request, data, 'post')
 
 # restFul 方法内容公用类

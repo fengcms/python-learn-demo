@@ -17,12 +17,11 @@ def ls (request, name):
     elif res == 503:
         return fail('数据查询失败', 503)
     else:
-        return fail('服务器内部错误', 500)
+        return fail('服务器内部错误', 500, 500)
 
 def post (request, name):
     hmupName = str2Hump(name)
     res = query.post(hmupName, request)
-    print(res)
     if isinstance(res, dict):
         return ok(res)
     elif res == 400:
@@ -32,7 +31,7 @@ def post (request, name):
     elif res == 503:
         return fail('数据添加失败', 503)
     else:
-        return fail('服务器内部错误', 500)
+        return fail('服务器内部错误', 500, 500)
 
 def get (request, name, oid):
     hmupName = str2Hump(name)
@@ -48,7 +47,7 @@ def get (request, name, oid):
     elif res == 503:
         return fail('数据查询失败', 503)
     else:
-        return fail('服务器内部错误', 500)
+        return fail('服务器内部错误', 500, 500)
 
 def put (request, name, oid):
     hmupName = str2Hump(name)
@@ -66,7 +65,7 @@ def put (request, name, oid):
     elif res == 503:
         return fail('数据更新失败', 503)
     else:
-        return fail('服务器内部错误', 500)
+        return fail('服务器内部错误', 500, 500)
 
 def delete (request, name, oid):
     hmupName = str2Hump(name)
@@ -80,4 +79,4 @@ def delete (request, name, oid):
     elif res == 503:
         return fail('数据删除失败', 503)
     else:
-        return fail('服务器内部错误', 500)
+        return fail('服务器内部错误', 500, 500)

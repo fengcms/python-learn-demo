@@ -127,8 +127,11 @@ def ls(className, request):
         else:
             pagesize = int(pagesize)
 
-        # 处理分页和分页需要查询
-        res = res.limit(pagesize).offset(page * pagesize)
+        # 处理分页和分页需要查询 如果 pagesize 为 -1 则全部输出
+        if pagesize == -1:
+            res = res.all()
+        else:
+            res = res.limit(pagesize).offset(page * pagesize)
 
         # 将结果整理成列表输出
         arr = []

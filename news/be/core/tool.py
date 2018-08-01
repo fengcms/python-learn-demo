@@ -12,23 +12,25 @@ def ok(data, total = None):
     else:
         return json({"data": data, "status": 0})
 
-def fail(data, httpCode=200):
-    return json({"data": data, "status": 1}, status=httpCode)
+def fail(data, statusCode=1, httpCode=200):
+    return json({"data": data, "status": statusCode}, status=httpCode)
 
 def checkParam(params, req):
     if not isinstance(params, list):
-        return fail('参数错误')
+        return fail('参数错误', 400)
     if not isinstance(req, dict):
-        return fail('参数错误')
+        return fail('参数错误', 400)
 
     for i in params:
         if not i in req:
-            return fail('参数错误')
+            return fail('参数错误', 400)
 
 def isInt(num):
-    if not isinstance(num, int) and not num.isdigit():
+    try:
+        num = int(num)
+        return isinstance(num, int)
+    except:
         return False
-    return True
 
 def str2Hump(text):
     arr = text.lower().split('_')

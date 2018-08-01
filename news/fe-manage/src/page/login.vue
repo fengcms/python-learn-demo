@@ -4,14 +4,17 @@
     <input type="text" v-model="password"> <br>
     <input type="text" v-model="new_password"> <br>
     <input type="button" @click='onSubmit' value="提交">
-    <input type="button" @click='logout' value="退出">
+    <input type="button" @click='logout' value="退出"> <br>
     <input type="button" @click='getList' value="获取文章列表">
     <input type="button" @click='search' value="搜索文章列表">
-    <input type="button" @click='del' value="删除数据">
-    <input type="button" @click='put' value="修改数据">
-    <input type="button" @click='post' value="添加数据">
-    <input type="button" @click='postMore' value="添加多条数据">
-    <input type="button" @click='get' value="获取单条数据">
+    <input type="button" @click='del' value="删除文章数据">
+    <input type="button" @click='put' value="修改文章数据">
+    <input type="button" @click='post' value="添加文章">
+    <input type="button" @click='postMore' value="添加多条文章">
+    <input type="button" @click='get' value="获取单条文章数据"> <br>
+    <input type="button" @click='postClass' value="添加栏目">
+    <input type="button" @click='getClass' value="获取栏目">
+    <br>
     <input type="button" @click='getSite' value="获取站点信息">
     <input type="button" @click='postSite' value="更新站点信息">
     <input type="button" @click='putManages' value="更新管理员密码"><br>
@@ -38,6 +41,17 @@ export default {
         page: 0,
         pagesize: 10,
         sort: '-channel_id,id'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    getClass () {
+      this.$api.get('channel', {
+        pid: 0,
+        pagesize: -1,
+        sort: '-id'
       }, r => {
         console.log(r)
       }, e => {
@@ -103,6 +117,16 @@ export default {
         title: '猪八戒',
         channel_id: 2,
         content: '我爱你的内容'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    postClass () {
+      this.$api.post('channel', {
+        name: '2栏目名称',
+        pid: 2
       }, r => {
         console.log(r)
       }, e => {

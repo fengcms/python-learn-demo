@@ -34,11 +34,11 @@ async def checkLogin(request):
         session = request.cookies.get('session')
         cs = checkSession(session)
         if cs == 1:
-            return fail('没有权限', 401)
+            return fail('没有权限', 401, 401)
         elif cs == 2:
-            return fail('登录超时', 401)
+            return fail('登录超时', 401, 401)
         elif cs == 4:
-            return fail('请重新登录', 401)
+            return fail('请重新登录', 401, 401)
         elif cs == 0:
             updataSession(session)
 
@@ -46,7 +46,7 @@ async def checkLogin(request):
 @bp.get("logout")
 async def logout(request):
     session = request.cookies.get('session')
-    res = fail('退出失败', 401)
+    res = fail('退出失败', 401, 401)
     cs = checkSession(session)
     if cs == 0:
         clearSession()
