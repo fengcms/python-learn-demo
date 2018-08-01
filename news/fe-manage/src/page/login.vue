@@ -92,7 +92,7 @@ export default {
       })
     },
     get () {
-      this.$api.get('article/37', null, r => {
+      this.$api.get('article/39', null, r => {
         console.log(r)
       }, e => {
         console.log(e)

@@ -72,10 +72,10 @@ class listView(HTTPMethodView):
         return await doProcess(app, name, request, query, 'ls')
     async def post(self, request, name):
         data = request.json
-        if 'batch_additon' in request and isinstance(request['batch_additon'], list):
-            request = {'data': request['batch_additon']}
+        if 'batch_additon' in data and isinstance(data['batch_additon'], list):
+            data = {'data': data['batch_additon']}
         else:
-            request = {'data': [request]}
+            data = {'data': [request]}
         return await doProcess(app, name, request, data, 'post')
 
 # restFul 方法内容公用类
