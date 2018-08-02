@@ -97,18 +97,6 @@ async def login(request):
     else:
         return fail('服务器内部错误', 503)
 
-# 网站信息接口特殊处理
-@bp.route('site', methods=['POST', 'GET'])
-async def site(request):
-    M = request.method
-    if M == 'GET':
-        return rest.get(request, 'site', 'first')
-    elif M == 'POST':
-        request = json.loads(request.body)
-        return rest.put(request, 'site', 'first')
-    else:
-        return fail('不被允许的请求方法', 405)
-
 # 上传文件接口特殊处理
 @bp.route('upload', methods=['POST'])
 async def upload(request):
