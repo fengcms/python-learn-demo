@@ -199,26 +199,24 @@ def put(className, oid, data):
     try:
         classModel = getattr(model, className)
         res = session.query(classModel)
+
         if oid == 'first':
             res = res.first()
-            if res == None:
-                return 4043
-            else:
-                return 200
         else:
             res = res.get(oid)
-            if res:
-                oldData = getDict(res)
-                for i in data:
-                    if i not in oldData:
-                        return 400
-                    setattr(res, i, data[i])
 
-                session.add(res)
-                session.commit()
-                return 200
-            else:
-                return 4042
+        if res:
+            oldData = getDict(res)
+            for i in data:
+                if i not in oldData:
+                    return 400
+                setattr(res, i, data[i])
+
+            session.add(res)
+            session.commit()
+            return 200
+        else:
+            return 4043
     except Exception as e:
         return 503
 

@@ -53,7 +53,6 @@ export default {
     },
     getClass () {
       this.$api.get('channel', {
-        pid: 0,
         pagesize: -1,
         sort: '-id'
       }, r => {
