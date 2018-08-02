@@ -14,8 +14,7 @@ async def post(request):
         if saveData != 1 and saveData['total'] >= 1:
             return fail('数据库已有用户名为' + account + '的管理员', 400)
         # 数据库存储字段名为 username 所以这里要改名
-        i['username'] = account
-        i.pop('account')
+        i['username'] = i.pop('account')
 
 async def put(request, oid):
     # 检查必填参数
@@ -44,10 +43,8 @@ async def put(request, oid):
         return fail('用户名不能被修改')
 
     # 将参数整理为数据库所需字段
-    request['username'] = account
-    request.pop('account')
-    request['password'] = request['new_password']
-    request.pop('new_password')
+    request['username'] = request.pop('account')
+    request['password'] = request.pop('new_password')
     request.pop('old_password')
 
 async def delete(request, oid):
