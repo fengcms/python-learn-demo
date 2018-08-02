@@ -3,21 +3,26 @@
 import hashlib
 import time
 import os
+from core.tool import getMd5
 
-TEMPFILE = 'temp/__session__'
+TEMPPATH = 'temp/'
 
-def makeSession (user):
+def makeSession(user, session=None):
     t = str(int(time.time()))
-    data = user + t
-    m1 = hashlib.md5()
-    m1.update(data.encode('utf-8'))
-    session = m1.hexdigest()
-    os.system('echo ' + session + ',' + t + ' > ' + TEMPFILE)
-    return session
+    if session == None:
+        data = user + t
+        session = getMd5(data)
+    sessionPath = TEMPPATH + getMd5(user)
+    os.system('echo ' + session + ',' + t + ' > ' + sessionPath)
+    return user + '|' + session
 
 def checkSession (session):
-    if os.path.exists(TEMPFILE):
-        with open(TEMPFILE, 'r') as f:
+    tmp = session.split('|')
+    user = tmp[0]
+    session = tmp[1]
+    sessionPath = TEMPPATH + getMd5(user)
+    if os.path.exists(sessionPath):
+        with open(sessionPath, 'r') as f:
             saveText = str(f.read()).split(',')
             saveSession = saveText[0]
             saveTime = int(saveText[1])
@@ -36,5 +41,7 @@ def clearSession ():
     os.system('rm ' + TEMPFILE)
 
 def updataSession (session):
-    t = str(int(time.time()))
-    os.system('echo ' + session + ',' + t + ' > ' + TEMPFILE)
+    tmp = session.split('|')
+    user = tmp[0]
+    session = tmp[1]
+    o = makeSession(user, session)

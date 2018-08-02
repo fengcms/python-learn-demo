@@ -48,6 +48,7 @@ async def logout(request):
     session = request.cookies.get('session')
     res = fail('退出失败', 401, 401)
     cs = checkSession(session)
+    print(cs)
     if cs == 0:
         clearSession()
         res = ok('退出成功')

@@ -5,6 +5,7 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as CPK
 import base64
 from urllib.parse import unquote
+import hashlib
 
 def ok(data, total = None):
     if isinstance(data, list):
@@ -62,4 +63,13 @@ def rsaDecrypt(keypath, enCode):
         cipher = CPK.new(rsaKey)
         res = cipher.decrypt(base64.b64decode(enCode), "ERROR")
         return res.decode(encoding = 'utf-8')
+
+def getMd5(source):
+    if isinstance(source, str):
+        source = source.encode('utf-8')
+    m1 = hashlib.md5()
+    m1.update(source)
+    res = m1.hexdigest()
+    return res
+
 
