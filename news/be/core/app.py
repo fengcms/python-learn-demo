@@ -4,7 +4,7 @@ import pkgutil
 import os
 
 from sanic import Sanic
-from sanic.exceptions import NotFound
+from sanic.exceptions import NotFound 
 from sanic.views import HTTPMethodView
 
 from core.tool import fail, query2Dict
@@ -61,7 +61,7 @@ async def registerModule(app, loop):
 # 处理 404 页面
 @app.exception(NotFound)
 def returnNotFound (request, exception):
-    return fail(request.url + '没有找到', 404)
+    return fail(request.url + '没有找到', 404, 404)
 
 # restFul 方法列表公用类
 class listView(HTTPMethodView):

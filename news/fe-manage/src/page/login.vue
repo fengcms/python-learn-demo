@@ -17,7 +17,11 @@
     <br>
     <input type="button" @click='getSite' value="获取站点信息">
     <input type="button" @click='postSite' value="更新站点信息">
-    <input type="button" @click='putManages' value="更新管理员密码"><br>
+    <br>
+    <input type="button" @click='getManages' value="获取管理员信息">
+    <input type="button" @click='postManages' value="添加新管理员">
+    <input type="button" @click='putManages' value="更新管理员密码">
+    <br>
     <input type="file" @change='upload'>
   </div>
 </template>
@@ -50,6 +54,16 @@ export default {
     getClass () {
       this.$api.get('channel', {
         pid: 0,
+        pagesize: -1,
+        sort: '-id'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    getManages () {
+      this.$api.get('manages', {
         pagesize: -1,
         sort: '-id'
       }, r => {
@@ -166,10 +180,21 @@ export default {
         console.log(e)
       })
     },
+    postManages () {
+      let pw = Rsa(this.password)
+      this.$api.post('manages', {
+        account: this.account,
+        password: pw
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
     putManages () {
       let pw = Rsa(this.password)
       let npw = Rsa(this.new_password)
-      this.$api.put('manages', {
+      this.$api.put('manages/3', {
         account: this.account,
         old_password: pw,
         new_password: npw

@@ -19,8 +19,11 @@ async def doProcess(app, name, request, query, method, oid=None):
 
     # 进行对应前处理，非字典结果，直接抛出
     if dir(app.process.get(bm)).count(method) == 1:
-        data = await getattr(app.process.get(bm), method)(query)
-        print(data)
+        if oid == None:
+            data = await getattr(app.process.get(bm), method)(query)
+        else:
+            data = await getattr(app.process.get(bm), method)(query, oid)
+
         if data:
             return data
     # 得到查询结果

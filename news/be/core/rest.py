@@ -5,6 +5,18 @@ import json
 from core import query
 from core.tool import ok, fail, str2Hump
 
+def getList (request, name):
+    data = json.loads(ls(request, name).body)
+    if data['status'] == 0:
+        return data['data']
+    return 1
+
+def getItem (name, oid):
+    data = json.loads(get({}, name, oid).body)
+    if data['status'] == 0:
+        return data['data']
+    return 1
+
 def ls (request, name):
     hmupName = str2Hump(name)
     res = query.ls(hmupName, request)

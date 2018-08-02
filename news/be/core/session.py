@@ -7,7 +7,7 @@ from core.tool import getMd5
 
 TEMPPATH = 'temp/'
 
-def makeSession(user, session=None):
+def makeSession (user, session=None):
     t = str(int(time.time()))
     if session == None:
         data = user + t

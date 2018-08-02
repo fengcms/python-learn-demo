@@ -11,8 +11,8 @@ from core.app import listView, itemView
 from core.tool import ok, fail, rsaDecrypt, checkParam
 from core.session import makeSession, checkSession, clearSession, updataSession
 
-from config import PREFIX, PRIVATE_KEY_PATH as KEY_PATH,\
-		UPLOAD_PATH, SUPPORT_TYPE, ANONYMOUS_API as ANY_API
+from config import PREFIX, PRIVATE_KEY_PATH as KEY_PATH, \
+                UPLOAD_PATH, SUPPORT_TYPE, ANONYMOUS_API as ANY_API
 
 FIX = PREFIX['be']
 
@@ -48,7 +48,6 @@ async def logout(request):
     session = request.cookies.get('session')
     res = fail('退出失败', 401, 401)
     cs = checkSession(session)
-    print(cs)
     if cs == 0:
         clearSession()
         res = ok('退出成功')
@@ -58,31 +57,42 @@ async def logout(request):
 # 登录处理
 @bp.route("login", methods=['POST'])
 async def login(request):
+
+    # 先检查参数是否正确
     req = json.loads(request.body)
     checkParam(['account', 'password'], req)
-    accRes = json.loads(rest.get({}, 'manages', 'first').body)
+
+    # 根据用户名，从数据库中读取管理员信息
+    accRes = json.loads(rest.ls({'username': req['account']}, 'manages').body)
+
+    # 判断查询结果是否正常
     if accRes['status'] == 0:
-        acc = accRes['data']
-        accPw = rsaDecrypt(KEY_PATH, acc['password'])
-        reqPw = rsaDecrypt(KEY_PATH, req['password'])
-        reqPwLen = len(reqPw)
-        if req['account'] != acc['username']:
+
+        # 判断是否查到该管理员
+        if len(accRes['data']['list']) >= 1:
+
+            # 处理管路员密码
+            acc = accRes['data']['list'][0]
+            accPw = rsaDecrypt(KEY_PATH, acc['password'])
+            reqPw = rsaDecrypt(KEY_PATH, req['password'])
+            reqPwLen = len(reqPw)
+            if reqPwLen < 6 or reqPwLen > 16:
+                res =  fail('密码长度为 6-16 位')
+                del res.cookies['session']
+                return res
+            elif accPw != reqPw:
+                res =  fail('密码不正确')
+                del res.cookies['session']
+                return res
+            else:
+                session = makeSession(req['account'])
+                res = ok('登录成功')
+                res.cookies['session'] = session
+                res.cookies['session']['httponly'] = True
+                return res
+        else:
             res = fail('用户名不正确')
             del res.cookies['session']
-            return res
-        elif accPw != reqPw:
-            res =  fail('密码不正确')
-            del res.cookies['session']
-            return res
-        elif reqPwLen < 6 or reqPwLen > 16:
-            res =  fail('密码长度为 6-16 位')
-            del res.cookies['session']
-            return res
-        else:
-            session = makeSession(req['account'])
-            res = ok('登录成功')
-            res.cookies['session'] = session
-            res.cookies['session']['httponly'] = True
             return res
     else:
         return fail('服务器内部错误', 503)
@@ -98,32 +108,6 @@ async def site(request):
         return rest.put(request, 'site', 'first')
     else:
         return fail('不被允许的请求方法', 405)
-
-# 网站管理员接口特殊处理
-@bp.route('manages', methods=['PUT'])
-async def manages(request):
-    req = json.loads(request.body)
-    checkParam(['account', 'old_password', 'new_password'], req)
-    oldPw = rsaDecrypt(KEY_PATH, req['old_password'])
-    newPw = rsaDecrypt(KEY_PATH, req['new_password'])
-    newPwLen = len(newPw)
-    if oldPw == newPw:
-        return fail('新密码不能与原密码相同')
-    if newPwLen < 6 or newPwLen > 16:
-        return fail('密码长度不能小于6位或大于16位')
-    if not re.match(r'^[a-zA-Z0-9_]+$', newPw):
-        return fail('密码只能是大小写字母加数字以及下划线的组合')
-
-    # 获取存储密码
-    saveManage = json.loads(rest.get(request, 'manages', 'first').body)['data']
-    saveId = saveManage['id']
-    savePw = rsaDecrypt(KEY_PATH, saveManage['password'])
-    if oldPw != savePw:
-        return fail('原密码不正确')
-
-    # 提交密码
-    r = {'username': req['account'], 'password': req['new_password']}
-    return rest.put(r, 'manages', saveId)
 
 # 上传文件接口特殊处理
 @bp.route('upload', methods=['POST'])
