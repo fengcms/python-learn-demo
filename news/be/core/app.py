@@ -70,11 +70,18 @@ class listView(HTTPMethodView):
         return await doProcess(app, name, request, query, 'ls')
     async def post(self, request, name):
         data = request.json
-        if 'batch_additon' in data and isinstance(data['batch_additon'], list):
-            data = {'data': data['batch_additon']}
+        if data:
+            if 'batch_additon' in data and isinstance(data['batch_additon'], list):
+                data = {'data': data['batch_additon']}
+            else:
+                data = {'data': [data]}
+            return await doProcess(app, name, request, data, 'post')
         else:
-            data = {'data': [data]}
-        return await doProcess(app, name, request, data, 'post')
+            return fail('数据不能为空', 400)
+    async def put(self, request, name):
+        return fail('Bad Method', 400, 400)
+    async def delete(self, request, name):
+        return fail('Bad Method', 400, 400)
 
 # restFul 方法内容公用类
 class itemView(HTTPMethodView):
@@ -83,7 +90,10 @@ class itemView(HTTPMethodView):
         return await doProcess(app, name, request, query, 'get', oid)
     async def put(self, request, name, oid):
         data = request.json
-        return await doProcess(app, name, request, data, 'put', oid)
+        if data:
+            return await doProcess(app, name, request, data, 'put', oid)
+        else:
+            return fail('数据不能为空', 400)
     async def delete(self, request, name, oid):
         query = query2Dict(request.query_string)
         return await doProcess(app, name, request, query, 'delete', oid)
