@@ -97,6 +97,38 @@ async def login(request):
     else:
         return fail('服务器内部错误', 503)
 
+# 将菜单栏目以树形结构输出
+@bp.route('tree_channel', methods=['GET'])
+async def tree_channel(request):
+    sourceData = rest.getList({'pagesize': -1, 'sort': '-id'}, 'channel')
+    if sourceData == 1:
+        return fail('服务器内部错误', 500, 500)
+    if sourceData['total'] < 1:
+        return fail('您当前还没有添加任何栏目')
+
+    sourceList = sourceData['list']
+    print(sourceList)
+
+    def makeTree(pid, arr):
+        res = []
+        
+        sArr = list(filter(lambda i:i['pid']==pid, arr))
+        if len(sArr) > 0:
+            if pid == 0:
+                res.append(sArr)
+            else:
+                p = list(filter(lambda i:i['id']==pid, res))[0]
+                index = res.index(p)
+                res[index]['children'] = sArr
+
+
+        return res
+    res = makeTree(0, sourceList)
+
+    print(res)
+
+    return ok('ok')
+
 # 上传文件接口特殊处理
 @bp.route('upload', methods=['POST'])
 async def upload(request):
