@@ -17,6 +17,8 @@ def makeSession (user, session=None):
     return user + '|' + session
 
 def checkSession (session):
+    if session == None:
+        return 4
     tmp = session.split('|')
     user = tmp[0]
     session = tmp[1]
@@ -37,8 +39,9 @@ def checkSession (session):
     else:
         return 4
 
-def clearSession ():
-    os.system('rm ' + TEMPFILE)
+def clearSession (session):
+    sessionPath = TEMPPATH + getMd5(session.split('|')[0])
+    os.system('rm ' + sessionPath)
 
 def updataSession (session):
     tmp = session.split('|')

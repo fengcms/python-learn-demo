@@ -49,7 +49,7 @@ async def logout(request):
     res = fail('退出失败', 401, 401)
     cs = checkSession(session)
     if cs == 0:
-        clearSession()
+        clearSession(session)
         res = ok('退出成功')
     del res.cookies['session']
     return res
@@ -107,27 +107,20 @@ async def tree_channel(request):
         return fail('您当前还没有添加任何栏目')
 
     sourceList = sourceData['list']
-    print(sourceList)
 
     def makeTree(pid, arr):
         res = []
-        
-        sArr = list(filter(lambda i:i['pid']==pid, arr))
-        if len(sArr) > 0:
-            if pid == 0:
-                res.append(sArr)
-            else:
-                p = list(filter(lambda i:i['id']==pid, res))[0]
-                index = res.index(p)
-                res[index]['children'] = sArr
-
-
+        for i in arr:
+            if i['pid'] == pid:
+                rep = makeTree(i['id'], arr)
+                if len(rep) != 0:
+                    i['children'] = rep
+                res.append(i)
         return res
     res = makeTree(0, sourceList)
 
-    print(res)
 
-    return ok('ok')
+    return ok(res)
 
 # 上传文件接口特殊处理
 @bp.route('upload', methods=['POST'])

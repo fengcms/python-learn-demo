@@ -9,7 +9,10 @@ import hashlib
 
 def ok(data, total = None):
     if isinstance(data, list):
-        return json({'data': {'list': data, 'total': total}, 'status': 0})
+        if total != None:
+            return json({'data': {'list': data, 'total': total}, 'status': 0})
+        else:
+            return json({'data': {'list': data}, 'status': 0})
     else:
         return json({"data": data, "status": 0})
 
