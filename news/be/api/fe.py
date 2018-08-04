@@ -17,14 +17,14 @@ from config import PREFIX, PRIVATE_KEY_PATH as KEY_PATH,\
 
 FIX = PREFIX['fe']
 
-bpfe = Blueprint('fe', url_prefix=FIX)
+bp = Blueprint('fe', url_prefix=FIX)
 
 # 加载默认 rest 接口生成路由
-bpfe.add_route(listView.as_view(), '<name>')
-bpfe.add_route(itemView.as_view(), '<name>/<oid>')
+bp.add_route(listView.as_view(), '<name>')
+bp.add_route(itemView.as_view(), '<name>/<oid>')
 
 # 中间件 
-@bpfe.middleware('request')
+@bp.middleware('request')
 async def check(request):
     '''
     middleHandle 方法说明：
@@ -39,7 +39,7 @@ async def check(request):
 
 
 # 将菜单栏目以树形结构输出
-@bpfe.route('tree_channel', methods=['GET'])
+@bp.route('tree_channel', methods=['GET'])
 async def tree_channel(request):
     sourceData = rest.getList({'pagesize': -1, 'sort': '-id'}, 'channel')
     if sourceData == 1:
