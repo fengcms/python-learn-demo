@@ -31,13 +31,13 @@ def checkParam(params, req):
 
 def isInt(num):
     try:
-        num = int(num)
+        num = int(str(num))
         return isinstance(num, int)
     except:
         return False
 
 def str2Hump(text):
-    arr = text.lower().split('_')
+    arr = filter(None, text.lower().split('_'))
     res = ''
     for i in arr:
         res =  res + i[0].upper() + i[1:]
