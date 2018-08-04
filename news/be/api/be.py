@@ -8,7 +8,7 @@ import os
 
 from core import rest, app
 from core.app import listView, itemView
-from core.tool import ok, fail, rsaDecrypt, checkParam, middleHandle
+from core.tool import ok, fail, rsaDecrypt, checkParam
 from core.session import makeSession, checkSession, clearSession, updataSession
 
 from config import PREFIX, PRIVATE_KEY_PATH as KEY_PATH,\
@@ -23,19 +23,46 @@ bp = Blueprint('news', url_prefix=FIX)
 bp.add_route(listView.as_view(), '<name>')
 bp.add_route(itemView.as_view(), '<name>/<oid>')
 
-# 中间件 
+# 中间件 检查是否登录
 @bp.middleware('request')
 async def checkLogin(request):
-    '''
-    middleHandle 方法说明：
-        1. 用于检查接口请求路径是否合法
-        2. 全局检查请求方法是否合法
-        3. 可根据提供的白名单或黑名单检查具体请求方法是否合法
-        4. 全局是否要求登录
-        5. 全局登录则可以设置免登录接口列表
-    middleHandle(request, 黑白名单字典, 'black' or 'white', 免登录字典, 是否全局需登录)
-    '''
-    middleHandle(request, BLACK_AUTH, 'black', ANY_API, True)
+    urlArr = request.url.split(FIX)[1].split('?')[0].split('/')
+    method = request.method
+    apiName = urlArr[0].lower()
+
+    # 检查请求路径是否合法
+    if len(urlArr) == 0 or len(urlArr) > 2:
+        return fail('请求路径不合法', 404, 404)
+
+    # 全局请求方法检查
+    if len(urlArr) == 1 and not method in ['GET', 'POST']:
+        return fail('不被允许的请求方法', 405, 405)
+    if len(urlArr) == 2 and not method in ['GET', 'PUT', 'DELETE']:
+        return fail('不被允许的请求方法', 405, 405)
+
+    # 检查请求方法黑名单
+    for i in BLACK_AUTH:
+        m = 'LS' if len(urlArr) == 1 and method == 'GET' else method
+        if apiName == i.lower() and m in BLACK_AUTH[i]:
+            return fail('该请求未被授权', 405, 405)
+
+    # 检查接口是否在免登陆列表
+    status = True
+    for i in ANY_API:
+        if apiName == i.lower():
+            status = False
+    # 校验是否登录
+    if status:
+        session = request.cookies.get('session')
+        cs = checkSession(session)
+        if cs == 1:
+            return fail('没有权限', 401, 401)
+        elif cs == 2:
+            return fail('登录超时', 401, 401)
+        elif cs == 4:
+            return fail('请重新登录', 401, 401)
+        elif cs == 0:
+            updataSession(session)
 
 # 登出处理
 @bp.get("logout")
