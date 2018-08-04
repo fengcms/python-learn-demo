@@ -29,3 +29,10 @@ BLACK_AUTH = {
     'site': ['GET', 'PUT', 'DELETE'],
 }
 
+WHITE_AUTH = {
+    'article': ['LS', 'GET'],
+    'channel': ['LS', 'GET'],
+    'site': ['LS', 'GET'],
+    'manages': [],
+    'tree_channel': ['LS'],
+}

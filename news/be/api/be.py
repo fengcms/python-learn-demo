@@ -18,7 +18,7 @@ from config import PREFIX, PRIVATE_KEY_PATH as KEY_PATH,\
 
 FIX = PREFIX['be']
 
-bp = Blueprint('news', url_prefix=FIX)
+bp = Blueprint('be', url_prefix=FIX)
 
 # 加载默认 rest 接口生成路由
 bp.add_route(listView.as_view(), '<name>')
