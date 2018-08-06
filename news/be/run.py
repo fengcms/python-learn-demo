@@ -29,18 +29,20 @@ async def check(request):
     # 根据请求路径，找到请求对应的接口前缀
     prefix = None
     rep = None
+    print(dir(request))
+    print(request.headers)
     for i in c.PREFIX:
-        if c.PREFIX[i] in request.url:
+        if request.headers['host'] + c.PREFIX[i] in request.url:
             prefix = c.PREFIX[i]
-    # 处理非法请求地址
-    if prefix == None:
-        return fail('请求路径不合法', 404, 404)
     # 处理后台接口中间处理
     if prefix == '/api/v1/be/':
         rep = middleHandle(request, prefix, 'black', c.BLACK_AUTH, True, c.ANONYMOUS_API)
     # 处理前台接口中间处理
     elif prefix == '/api/v1/fe/':
         rep = middleHandle(request, prefix, 'white', c.WHITE_AUTH, False)
+    # 处理非法请求地址
+    else:
+        rep = fail('请求路径不合法', 404, 404)
     # 处理结果为非空，则直接return
     if rep:
         return rep
