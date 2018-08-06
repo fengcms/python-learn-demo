@@ -30,7 +30,7 @@ async def check(request):
     prefix = None
     rep = None
     for i in c.PREFIX:
-        if i in request.url:
+        if c.PREFIX[i] in request.url:
             prefix = c.PREFIX[i]
     # 处理非法请求地址
     if prefix == None:
