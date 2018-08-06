@@ -6,15 +6,13 @@ import re
 import hashlib
 import os
 
-from core import rest, app
+from core import rest
 from core.app import listView, itemView
 from core.tool import ok, fail, rsaDecrypt, checkParam
-from core.session import makeSession, checkSession, clearSession, updataSession
-from core.handle import middleHandle
+from core.session import makeSession, checkSession, clearSession
 
 from config import PREFIX, PRIVATE_KEY_PATH as KEY_PATH,\
-                UPLOAD_PATH, SUPPORT_TYPE, ANONYMOUS_API as ANY_API,\
-                BLACK_AUTH
+                UPLOAD_PATH, SUPPORT_TYPE
 
 FIX = PREFIX['be']
 
@@ -23,20 +21,6 @@ bp = Blueprint('be', url_prefix=FIX)
 # 加载默认 rest 接口生成路由
 bp.add_route(listView.as_view(), '<name>')
 bp.add_route(itemView.as_view(), '<name>/<oid>')
-
-# 中间件 
-@bp.middleware('request')
-async def checkLogin(request):
-    '''
-    middleHandle 方法说明：
-        1. 用于检查接口请求路径是否合法
-        2. 全局检查请求方法是否合法
-        3. 可根据提供的白名单或黑名单检查具体请求方法是否合法
-        4. 全局是否要求登录
-        5. 全局登录则可以设置免登录接口列表
-    middleHandle(request, 接口前缀, 黑白名单字典, 'black' or 'white', 免登录字典, 是否全局需登录)
-    '''
-    return middleHandle(request, FIX, BLACK_AUTH, 'black', ANY_API, True)
 
 # 登出处理
 @bp.get("logout")

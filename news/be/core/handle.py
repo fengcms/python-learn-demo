@@ -3,8 +3,8 @@
 from core.session import makeSession, checkSession, clearSession, updataSession
 from core.tool import fail
 
-def middleHandle(request, prefix, authList = {}, authType = 'black',\
-        anyList = {}, checkLogin = True):
+def middleHandle(request, prefix, authType = 'black', authList = {},\
+         checkLogin = True, anyList = {}):
     if prefix in request.url:
         urlArr = request.url.split(prefix)[1].split('?')[0].split('/')
         method = request.method
