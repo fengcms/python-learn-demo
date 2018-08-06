@@ -29,8 +29,6 @@ async def check(request):
     # 根据请求路径，找到请求对应的接口前缀
     prefix = None
     rep = None
-    print(dir(request))
-    print(request.headers)
     for i in c.PREFIX:
         if request.headers['host'] + c.PREFIX[i] in request.url:
             prefix = c.PREFIX[i]
