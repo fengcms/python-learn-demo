@@ -35,7 +35,7 @@ async def check(request):
         5. 全局登录则可以设置免登录接口列表
     middleHandle(request, 接口前缀, 黑白名单字典, 'black' or 'white', 免登录字典, 是否全局需登录)
     '''
-    middleHandle(request, FIX, WHITE_AUTH, 'white', {}, False)
+    return middleHandle(request, FIX, WHITE_AUTH, 'white', {}, False)
 
 
 # 将菜单栏目以树形结构输出

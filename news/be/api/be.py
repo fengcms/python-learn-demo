@@ -36,7 +36,7 @@ async def checkLogin(request):
         5. 全局登录则可以设置免登录接口列表
     middleHandle(request, 接口前缀, 黑白名单字典, 'black' or 'white', 免登录字典, 是否全局需登录)
     '''
-    middleHandle(request, FIX, BLACK_AUTH, 'black', ANY_API, True)
+    return middleHandle(request, FIX, BLACK_AUTH, 'black', ANY_API, True)
 
 # 登出处理
 @bp.get("logout")
