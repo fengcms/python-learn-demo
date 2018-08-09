@@ -19,9 +19,13 @@ class Article(Base):
     __tablename__ = 'articles'
 
     id = Column(Integer, primary_key=True)
+    edit_type = Column(String(255, 0), nullable=False)
     title = Column(String(255, 0), nullable=False)
     channel_id = Column(Integer, nullable=False)
-    content = Column(Text, nullable=False)
+    description = Column(Text)
+    tags = Column(Text)
+    content = Column(Text)
+    markdown = Column(Text)
     img = Column(String(255, 0))
     author = Column(String(255, 0))
     origin = Column(String(255, 0))

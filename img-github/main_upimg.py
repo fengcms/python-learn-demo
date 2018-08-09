@@ -66,6 +66,7 @@ async def upimg(request):
 
     saveDir = baseDir + md5Name[0:2] + '/'
     savePath = saveDir + md5Name[2:] + '.' + imageSuffix
+    saveSourcePath = saveDir + md5Name[2:] + '_source.' + imageSuffix
     resPath = '/' + md5Name[0:2] + '/' + md5Name[2:] + '.' + imageSuffix
 
     # 如果文件夹不存在，就创建文件夹
@@ -85,6 +86,12 @@ async def upimg(request):
             layer.paste(mark, (imgW - 180, imgH - 60))
             out = Image.composite(layer, img, layer)
             out.save(savePath, 'JPEG', quality = 100)
+            # 保存原图
+            smark = Image.open("do.png")
+            slayer = Image.new('RGBA', img.size, (0,0,0,0))
+            slayer.paste(smark, (0, 0))
+            sout = Image.composite(slayer, img, slayer)
+            sout.save(saveSourcePath, 'JPEG', quality = 100)
         else:
             saveImage(savePath, image)
 

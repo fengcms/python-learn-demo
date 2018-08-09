@@ -6,6 +6,7 @@ from Crypto.Cipher import PKCS1_v1_5 as CPK
 import base64
 from urllib.parse import unquote
 import hashlib
+import re
 
 def ok(data, total = None):
     if isinstance(data, list):
@@ -75,4 +76,7 @@ def getMd5(source):
     res = m1.hexdigest()
     return res
 
-
+def filterHtml(htmlStr):
+    dr = re.compile(r'<[^>]+>', re.S)
+    res = dr.sub('', htmlStr)
+    return res

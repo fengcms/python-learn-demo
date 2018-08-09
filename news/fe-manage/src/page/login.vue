@@ -3,6 +3,8 @@
     <input type="text" v-model="account"> <br>
     <input type="text" v-model="password"> <br>
     <input type="text" v-model="new_password"> <br>
+    <textarea v-model="markdown" cols="30" rows="10"></textarea>
+    <br>
     <input type="button" @click='onSubmit' value="提交">
     <input type="button" @click='logout' value="退出"> <br>
     <input type="button" @click='getList' value="获取文章列表">
@@ -10,6 +12,7 @@
     <input type="button" @click='del' value="删除文章数据">
     <input type="button" @click='put' value="修改文章数据">
     <input type="button" @click='post' value="添加文章">
+    <input type="button" @click='postMd' value="添加markdown文章">
     <input type="button" @click='postMore' value="添加多条文章">
     <input type="button" @click='get' value="获取单条文章数据"> <br>
     <input type="button" @click='postClass' value="添加栏目">
@@ -33,7 +36,8 @@ export default {
       account: 'admin',
       password: '123456',
       new_password: '1445667',
-      img: ''
+      img: '',
+      markdown: '111222333'
     }
   },
   created () {
@@ -119,7 +123,7 @@ export default {
       })
     },
     get () {
-      this.$api.get('article/39', null, r => {
+      this.$api.get('article/7', null, r => {
         console.log(r)
       }, e => {
         console.log(e)
@@ -128,8 +132,22 @@ export default {
     post () {
       this.$api.post('article', {
         title: '猪八戒',
+        edit_type: 'html',
         channel_id: 2,
         content: '我爱你的内容'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    postMd () {
+      this.$api.post('article', {
+        title: '猪八戒',
+        edit_type: 'md',
+        channel_id: 2,
+        markdown: this.markdown,
+        tags: 'love,girl,boy'
       }, r => {
         console.log(r)
       }, e => {
