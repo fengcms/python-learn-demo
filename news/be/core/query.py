@@ -245,7 +245,7 @@ def put(className, oid, data):
 
             session.add(res)
             session.commit()
-            succIds.append(id)
+            succIds.append(oldData['id'])
         else:
             failIds.append(id)
     try:
