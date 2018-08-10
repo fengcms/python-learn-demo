@@ -113,9 +113,9 @@ export default {
       })
     },
     put () {
-      this.$api.put('article/37', {
-        title: '我爱你',
-        content: '我爱你的内容'
+      this.$api.put('article/37,38,39,40', {
+        title: '我爱你aaa',
+        content: '我爱你的内容aaa'
       }, r => {
         console.log(r)
       }, e => {

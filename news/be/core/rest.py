@@ -64,16 +64,12 @@ def get (request, name, oid):
 def put (request, name, oid):
     hmupName = str2Hump(name)
     res = query.put(hmupName, oid, request)
-    if res == 200:
-        return ok('更新成功')
+    if isinstance(res, dict):
+        return ok(res)
     elif res == 400:
         return fail('参数错误', 400)
     elif res == 404:
         return fail('数据库中没有' + name + '这个表', 404)
-    elif res == 4042:
-        return fail('没有这条数据', 404)
-    elif res == 4043:
-        return fail(name + '数据库中没有数据', 404)
     elif res == 503:
         return fail('数据更新失败', 503)
     else:

@@ -98,24 +98,16 @@ def ls(className, request):
                     for val in argVal:
                         res = res.filter(field != val)
                 # 大于查询
-                elif argMethod == 'gt':
-                    if len(argVal) > 1:
-                        return 400
+                elif argMethod == 'gt' and len(argVal) == 1:
                     res = res.filter(field > argVal[0])
                 # 大于等于查询
-                elif argMethod == 'gteq':
-                    if len(argVal) > 1:
-                        return 400
+                elif argMethod == 'gteq' and len(argVal) == 1:
                     res = res.filter(field >= argVal[0])
                 # 小于查询
-                elif argMethod == 'lt':
-                    if len(argVal) > 1:
-                        return 400
+                elif argMethod == 'lt' and len(argVal) == 1:
                     res = res.filter(field < argVal[0])
                 # 小于等于查询
-                elif argMethod == 'lteq':
-                    if len(argVal) > 1:
-                        return 400
+                elif argMethod == 'lteq' and len(argVal) == 1:
                     res = res.filter(field <= argVal[0])
                 # in List 查询
                 elif argMethod == 'in':
@@ -232,19 +224,18 @@ def get(className, oid):
     except Exception as e:
         return 503
 
-# 修改单条数据方法
+# 修改数据方法
+'''
+支持多条数据批量修改
+批量修改用法与批量删除一致
+只能批量修改一致的内容，比如批量修改文章归属栏目ID等
+'''
 def put(className, oid, data):
     if not hasClass(className):
         return 404
-    try:
-        classModel = getattr(model, className)
-        res = session.query(classModel)
-
-        if oid == 'first':
-            res = res.first()
-        else:
-            res = res.get(oid)
-
+    succIds = []
+    failIds = []
+    def putData(res, id):
         if res:
             oldData = getDict(res)
             for i in data:
@@ -254,9 +245,25 @@ def put(className, oid, data):
 
             session.add(res)
             session.commit()
-            return 200
+            succIds.append(id)
         else:
-            return 4043
+            failIds.append(id)
+    try:
+        classModel = getattr(model, className)
+        res = session.query(classModel)
+
+        if oid == 'first':
+            putData(res.first(), -1)
+        else:
+            idArr = oid.split(',')
+            for id in idArr:
+                putData(res.get(id), int(id))
+
+        if len(succIds) == 0:
+            return 400
+        else:
+            return {'success': succIds, 'fail': failIds}
+
     except Exception as e:
         return 503
 

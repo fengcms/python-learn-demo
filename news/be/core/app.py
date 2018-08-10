@@ -78,10 +78,6 @@ class listView(HTTPMethodView):
             return await doProcess(app, name, request, data, 'post')
         else:
             return fail('数据不能为空', 400)
-    async def put(self, request, name):
-        return fail('Bad Method', 400, 400)
-    async def delete(self, request, name):
-        return fail('Bad Method', 400, 400)
 
 # restFul 方法内容公用类
 class itemView(HTTPMethodView):
