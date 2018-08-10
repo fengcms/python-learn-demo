@@ -19,17 +19,17 @@ async def post (request):
             return fail('栏目ID只能是数字', 400)
         elif not 'edit_type' in i:
             return fail('编辑器类别不能为空', 400)
-        elif i['edit_type'] != 'html' and i['edit_type'] != 'md':
+        elif i['edit_type'] != 'HTML' and i['edit_type'] != 'MD':
             return fail('编辑器类别指定错误', 400)
 
         # 根据编辑器类别，输出文章内容
-        if i['edit_type'] == 'md':
+        if i['edit_type'] == 'MD':
             if not 'markdown' in i:
                 return fail('文章内容不能为空', 400)
             # 转化markdown格式
             i['content'] = markdown.markdown(i['markdown'])
 
-        if i['edit_type'] == 'html':
+        if i['edit_type'] == 'HTML':
             if not 'content' in i:
                 return fail('文章内容不能为空', 400)
 

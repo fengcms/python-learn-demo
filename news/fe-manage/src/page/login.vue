@@ -132,7 +132,7 @@ export default {
     post () {
       this.$api.post('article', {
         title: '猪八戒',
-        edit_type: 'html',
+        edit_type: 'HTML',
         channel_id: 2,
         content: '我爱你的内容'
       }, r => {
@@ -144,7 +144,7 @@ export default {
     postMd () {
       this.$api.post('article', {
         title: '猪八戒',
-        edit_type: 'md',
+        edit_type: 'MD',
         channel_id: 2,
         markdown: this.markdown,
         tags: 'love,girl,boy'
@@ -168,10 +168,12 @@ export default {
       this.$api.post('article', {
         batch_additon: [{
           title: '猪八戒',
+          edit_type: 'HTML',
           channel_id: 2,
           content: '我爱你的内容'
         }, {
           title: '孙悟空',
+          edit_type: 'HTML',
           channel_id: 1,
           content: '我爱你的内容'
         }]

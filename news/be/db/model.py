@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
-from sqlalchemy import Column, Integer, String, TIMESTAMP, Text, text, create_engine
+from sqlalchemy import Column, Integer, String, Text, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import time
 
 from core.tool import rsaEncrypt
 import config
@@ -11,7 +12,7 @@ from config import DB_CONN, PUBLIC_KEY_PATH as KEY_PATH
 Base = declarative_base()
 metadata = Base.metadata
 
-engine = create_engine(DB_CONN)
+engine = create_engine(DB_CONN, echo=False)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
@@ -30,8 +31,7 @@ class Article(Base):
     author = Column(String(255, 0))
     origin = Column(String(255, 0))
     editor = Column(String(255, 0))
-    time = Column(TIMESTAMP, server_default=text("current_timestamp"))
-
+    time = Column(Integer, default=int(time.time()))
 
 class Channel(Base):
     __tablename__ = 'channels'
@@ -39,7 +39,9 @@ class Channel(Base):
     id = Column(Integer, primary_key=True)
     pid = Column(Integer)
     name = Column(String(255), nullable=False)
-    time = Column(TIMESTAMP, server_default=text("current_timestamp"))
+    keywords = Column(Text)
+    description = Column(Text)
+    time = Column(Integer, default=int(time.time()))
 
 
 class Manages(Base):
@@ -48,17 +50,62 @@ class Manages(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String(255), nullable=False)
     password = Column(Text, nullable=False)
-    time = Column(TIMESTAMP, server_default=text("current_timestamp"))
-
+    time = Column(Integer, default=int(time.time()))
 
 class Site(Base):
-    __tablename__ = 'sites'
+    __tablename__ = 'site'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
     title = Column(String(255), nullable=False)
-    copyright = Column(Text)
     logo = Column(String(255))
+    keywords = Column(Text)
+    description = Column(Text)
+    copyright = Column(Text)
+    time = Column(Integer, default=int(time.time()))
+
+class Author(Base):
+    __tablename__ = 'authors'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    mobile = Column(String(255))
+    email = Column(String(255))
+    website = Column(String(255))
+    time = Column(Integer, default=int(time.time()))
+
+class Origin(Base):
+    __tablename__ = 'origins'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    contact = Column(String(255))
+    mobile = Column(String(255))
+    email = Column(String(255))
+    website = Column(String(255))
+    time = Column(Integer, default=int(time.time()))
+
+class Editor(Base):
+    __tablename__ = 'editors'
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String(255), nullable=False)
+    password = Column(Text, nullable=False)
+    name = Column(String(255), nullable=False)
+    mobile = Column(String(255))
+    email = Column(String(255))
+    website = Column(String(255))
+    time = Column(Integer, default=int(time.time()))
+
+class Tags(Base):
+    __tablename__ = 'tags'
+
+    id = Column(Integer, primary_key=True)
+    tag = Column(String(255), nullable=False)
+    channel_id = Column(Integer, nullable=False)
+    hits = Column(Integer)
+    time = Column(Integer, default=int(time.time()))
+
 
 # 根据模型创建数据库（如果数据库存在，则不会执行）
 metadata.create_all(engine)

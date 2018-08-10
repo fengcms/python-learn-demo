@@ -3,6 +3,8 @@
 from core.tool import isInt
 from db import model
 from config import PAGESIZE
+from sqlalchemy import text
+import time
 
 session = model.DBSession()
 
@@ -46,7 +48,7 @@ def ls(className, request):
         args = {}
         for i in request:
             i = i.lower()
-            if not i in ['page', 'pagesize', 'sort']:
+            if not i in ['page', 'pagesize', 'sort', 'time']:
                 args[i] = request[i]
 
         # 获得模型，以及支持的字段数组列表
@@ -55,6 +57,24 @@ def ls(className, request):
 
         # 开始查询数据
         res = session.query(classModel)
+        
+        # 处理时间特性
+        if 'time' in request:
+            tArr = request['time'].split('-')
+            if len(tArr) > 2:
+                return 400
+            for i in tArr:
+                if not isInt(i):
+                    return 400
+            if len(tArr) == 1:
+                t = int(tArr[0])
+                st = t - (t + 28800)%86400
+                et = st + 86400
+            else:
+                st = int(tArr[0])
+                et = int(tArr[1])
+            field = getattr(classModel, 'time')
+            res = res.filter(field < et).filter(field >= st)
 
         # 处理各种非标准参数查询
         for i in args:
@@ -77,6 +97,26 @@ def ls(className, request):
                 elif argMethod == 'neq':
                     for val in argVal:
                         res = res.filter(field != val)
+                # 大于查询
+                elif argMethod == 'gt':
+                    if len(argVal) > 1:
+                        return 400
+                    res = res.filter(field > argVal[0])
+                # 大于等于查询
+                elif argMethod == 'gteq':
+                    if len(argVal) > 1:
+                        return 400
+                    res = res.filter(field >= argVal[0])
+                # 小于查询
+                elif argMethod == 'lt':
+                    if len(argVal) > 1:
+                        return 400
+                    res = res.filter(field < argVal[0])
+                # 小于等于查询
+                elif argMethod == 'lteq':
+                    if len(argVal) > 1:
+                        return 400
+                    res = res.filter(field <= argVal[0])
                 # in List 查询
                 elif argMethod == 'in':
                     res = res.filter(field.in_(argVal))
