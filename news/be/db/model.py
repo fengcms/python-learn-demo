@@ -45,7 +45,7 @@ class Channel(Base):
 
 
 class Manages(Base):
-    __tablename__ = 'manage'
+    __tablename__ = 'manages'
 
     id = Column(Integer, primary_key=True)
     username = Column(String(255), nullable=False)

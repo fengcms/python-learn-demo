@@ -256,6 +256,10 @@ def put(className, oid, data):
     def putData(res, id, dat = data):
         if res:
             oldData = getDict(res)
+            # ID 不可修改，所以移除 ID 数据
+            if 'id' in dat:
+                dat.pop('id')
+
             for i in dat:
                 setattr(res, i, dat[i])
 
@@ -265,7 +269,7 @@ def put(className, oid, data):
         else:
             failIds.append(id)
 
-    # 检查提交数据是否符合表要求方法
+    # 检查提交数据字段是否在表中包含方法
     def checkField(dat, fields):
         for i in dat:
             if not i in fields:
@@ -287,7 +291,7 @@ def put(className, oid, data):
             dat = data['data']
             for i in dat:
                 checkField(i, fields)
-                if not i.get('id'):
+                if not 'id' in i:
                     return 400
             for i in dat:
                 putData(res.get(i['id']), i['id'], i)

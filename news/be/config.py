@@ -10,6 +10,7 @@ PREFIX = {
 ANONYMOUS_API = ['login', 'logout', 'test']
 
 DB_CONN = 'sqlite:///' + sys.path[0] + '/db/news.db'
+# DB_CONN = 'mysql+mysqlconnector://root:123456@localhost:3306/news'
 
 PUBLIC_KEY_PATH = './key/public.pem'
 PRIVATE_KEY_PATH = './key/private.pem'
