@@ -17,7 +17,7 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 class Article(Base):
-    __tablename__ = 'articles'
+    __tablename__ = 'article'
 
     id = Column(Integer, primary_key=True)
     edit_type = Column(String(255, 0), nullable=False)
@@ -34,7 +34,7 @@ class Article(Base):
     time = Column(Integer, default=int(time.time()))
 
 class Channel(Base):
-    __tablename__ = 'channels'
+    __tablename__ = 'channel'
 
     id = Column(Integer, primary_key=True)
     pid = Column(Integer)
@@ -45,7 +45,7 @@ class Channel(Base):
 
 
 class Manages(Base):
-    __tablename__ = 'manages'
+    __tablename__ = 'manage'
 
     id = Column(Integer, primary_key=True)
     username = Column(String(255), nullable=False)
@@ -65,7 +65,7 @@ class Site(Base):
     time = Column(Integer, default=int(time.time()))
 
 class Author(Base):
-    __tablename__ = 'authors'
+    __tablename__ = 'author'
     
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
@@ -75,7 +75,7 @@ class Author(Base):
     time = Column(Integer, default=int(time.time()))
 
 class Origin(Base):
-    __tablename__ = 'origins'
+    __tablename__ = 'origin'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
@@ -86,7 +86,7 @@ class Origin(Base):
     time = Column(Integer, default=int(time.time()))
 
 class Editor(Base):
-    __tablename__ = 'editors'
+    __tablename__ = 'editor'
 
     id = Column(Integer, primary_key=True)
     username = Column(String(255), nullable=False)

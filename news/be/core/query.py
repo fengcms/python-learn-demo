@@ -226,35 +226,75 @@ def get(className, oid):
 
 # 修改数据方法
 '''
-支持多条数据批量修改
-批量修改用法与批量删除一致
-只能批量修改一致的内容，比如批量修改文章归属栏目ID等
+1. 支持未知ID单条数据修改
+    URL:    /xxx/first
+    DATA:   {...}
+    此方法会找数据库第一条数据，进行对应修改，用于特殊用途
+2. 支持单ID数据修改
+    URL: /xxx/:id
+    DATA:   {...}
+    正常使用，数据为需要修改的数据字典
+3. 支持多ID单数据修改
+    URL: /xxx/1,2,3,4,5,6
+    DATA:   {...}
+    支持将多条数据的内容进行统一处理，例如批量加入回收站或者批量转移归属栏目等
+4. 支持多ID多数据修改
+    URL: /xxx/batch
+    DATA:   {'data': [{...}, {...}, {...}, {...}]}
+    将需要多条修改的数据构成数组，用 'data' 字段传进来。
+    每个数据里面必须包含 'id' 字段，否则参数错误
 '''
 def put(className, oid, data):
     if not hasClass(className):
         return 404
+
+    # 构建成功和失败 id 数据
     succIds = []
     failIds = []
-    def putData(res, id):
+
+    # 修改数据方法
+    def putData(res, id, dat = data):
         if res:
             oldData = getDict(res)
-            for i in data:
-                if i not in oldData:
-                    return 400
-                setattr(res, i, data[i])
+            for i in dat:
+                setattr(res, i, dat[i])
 
             session.add(res)
             session.commit()
             succIds.append(oldData['id'])
         else:
             failIds.append(id)
+
+    # 检查提交数据是否符合表要求方法
+    def checkField(dat, fields):
+        for i in dat:
+            if not i in fields:
+                return 400
     try:
         classModel = getattr(model, className)
         res = session.query(classModel)
 
+        fields = getFieldList(classModel)
+
+        # 处理不知道ID的单条数据修改
         if oid == 'first':
+            checkField(data, fields)
             putData(res.first(), -1)
+        # 处理多条数据批量修改
+        elif oid == 'batch':
+            if not data.get('data'):
+                return 400
+            dat = data['data']
+            for i in dat:
+                checkField(i, fields)
+                if not i.get('id'):
+                    return 400
+            for i in dat:
+                putData(res.get(i['id']), i['id'], i)
+
+        # 处理正常单条数据单ID或多ID批量修改
         else:
+            checkField(data, fields)
             idArr = oid.split(',')
             for id in idArr:
                 putData(res.get(id), int(id))

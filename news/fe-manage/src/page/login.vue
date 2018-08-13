@@ -11,6 +11,7 @@
     <input type="button" @click='search' value="搜索文章列表">
     <input type="button" @click='del' value="删除文章数据">
     <input type="button" @click='put' value="修改文章数据">
+    <input type="button" @click='putBatch' value="批量修改文章数据">
     <input type="button" @click='post' value="添加文章">
     <input type="button" @click='postMd' value="添加markdown文章">
     <input type="button" @click='postMore' value="添加多条文章">
@@ -116,6 +117,31 @@ export default {
       this.$api.put('article/37,38,39,40', {
         title: '我爱你aaa',
         content: '我爱你的内容aaa'
+      }, r => {
+        console.log(r)
+      }, e => {
+        console.log(e)
+      })
+    },
+    putBatch () {
+      this.$api.put('article/batch', {
+        data: [
+          {
+            id: 1,
+            title: '我爱你aaa',
+            content: '我爱你的内容aaa'
+          },
+          {
+            id: 2,
+            title: '我爱你aaa',
+            content: '我爱你的内容aaa'
+          },
+          {
+            id: 3,
+            title: '我爱你aaa',
+            content: '我爱你的内容aaa'
+          }
+        ]
       }, r => {
         console.log(r)
       }, e => {
