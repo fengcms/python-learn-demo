@@ -32,6 +32,7 @@ def getSuffix(hexStr):
     print(hexStr)
     SUPPORT_TYPE = {
             'ffd8ffe':'jpg',
+            '3c73766720786d6c6e73':'svg',
             '89504e470d0a1a0a0000':'png',
             '474946383961':'gif',
         }
@@ -68,6 +69,9 @@ async def upimg(request):
     savePath = saveDir + md5Name[2:] + '.' + imageSuffix
     saveSourcePath = saveDir + md5Name[2:] + '_source.' + imageSuffix
     resPath = '/' + md5Name[0:2] + '/' + md5Name[2:] + '.' + imageSuffix
+    if imageSuffix == 'svg':
+        resPath += '?sanitize=true'
+
 
     # 如果文件夹不存在，就创建文件夹
     if not os.path.exists(saveDir):
