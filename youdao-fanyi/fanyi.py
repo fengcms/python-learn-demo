@@ -2,10 +2,12 @@
 # -*- coding: UTF-8 -*-
 
 import requests
+import clipboard
 import argparse
 import random
 import hashlib
 import json
+import signal
 from config import APPID, APPKey
 from prettytable import PrettyTable
 
@@ -47,10 +49,11 @@ def showRes(word, res):
     x.padding_width = 1
     x.align = 'l'
 
-    print('\n\033[1;36m简单结果\033[0m')
+    print('\n\033[1;36m简单结果\033[35m 该结果会自动复制到剪切板\033[0m')
 
     for i in res['translation']:
         x.add_row(['结果', i])
+        clipboard.copy(i)
     print(x)
 
     if 'basic' in res:
@@ -84,10 +87,15 @@ def showRes(word, res):
             x.add_row([i['key'], ', '.join(i['value'])])
         print(x)
 
+def exitFanyi (code, frame):
+    print('\n\033[0m很高兴为您服务')
+    exit()
+
 def inputWord (isFirst):
     if isFirst:
         print('\n\033[1;36m英汉互译词典\033[0m by FungLeo')
         print('\033[35mTip：退出程序请输入 \033[1;31mexit\033[4;0m\n')
+    signal.signal(signal.SIGINT, exitFanyi)
     word = input('请输入要翻译的内容：')
     if word == 'exit':
         print('\033[0m很高兴为您服务')

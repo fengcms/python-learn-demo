@@ -46,6 +46,8 @@ def saveImage(savePath, image):
     tempFile.write(image)
     tempFile.close()
 
+app.static('/gui', './gui')
+
 # 上传文件接口
 @app.route('/upimg', methods=['POST'])
 async def upimg(request):
