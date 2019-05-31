@@ -1,0 +1,1575 @@
+{
+    "config": {
+        "labelPosition": "right",
+        "labelWidth": 100,
+        "size": "small"
+    },
+    "list": [
+        {
+            "classname": "basic-info",
+            "icon": "icon-panel",
+            "issys": 1,
+            "key": "id_1559041564121",
+            "list": [
+                {
+                    "icon": "icon-text",
+                    "issys": 1,
+                    "key": "id_1559041582321",
+                    "model": "text_id_1559041582321",
+                    "name": "\u57fa\u672c\u4fe1\u606f",
+                    "options": {
+                        "remoteFunc": "func_id_1559041582321"
+                    },
+                    "rules": [],
+                    "type": "text"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559041726076",
+                                    "model": "waybillId",
+                                    "name": "\u8fd0\u5355\u53f7",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": true,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559041726076",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u8fd0\u5355\u53f7\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-select",
+                                    "issys": 1,
+                                    "key": "id_1559124571934",
+                                    "model": "partnerId",
+                                    "name": "\u5ba2\u6237\u540d\u79f0",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": false,
+                                        "multiple": false,
+                                        "options": [],
+                                        "placeholder": "",
+                                        "props": {
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": false,
+                                        "remoteFunc": "",
+                                        "remoteOptions": [],
+                                        "required": true,
+                                        "showLabel": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u5ba2\u6237\u540d\u79f0\u5fc5\u987b\u586b\u5199",
+                                            "required": true
+                                        }
+                                    ],
+                                    "type": "select"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-select",
+                                    "issys": 1,
+                                    "key": "id_1559124612948",
+                                    "model": "projectId",
+                                    "name": "\u9879\u76ee\u540d\u79f0",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": false,
+                                        "multiple": false,
+                                        "options": [],
+                                        "placeholder": "",
+                                        "props": {
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": false,
+                                        "remoteFunc": "",
+                                        "remoteOptions": [],
+                                        "required": true,
+                                        "showLabel": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u9879\u76ee\u540d\u79f0\u5fc5\u987b\u586b\u5199",
+                                            "required": true
+                                        }
+                                    ],
+                                    "type": "select"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-select",
+                                    "issys": 0,
+                                    "key": "id_1559124635217",
+                                    "model": "transportType",
+                                    "name": "\u8fd0\u8f93\u65b9\u5f0f",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": false,
+                                        "multiple": false,
+                                        "options": [],
+                                        "placeholder": "",
+                                        "props": {
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": false,
+                                        "remoteFunc": "",
+                                        "remoteOptions": [],
+                                        "required": false,
+                                        "showLabel": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "select"
+                                }
+                            ],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559041585302",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "gutter": "",
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559041585302"
+                    },
+                    "type": "grid"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 0,
+                                    "key": "id_1559041788853",
+                                    "model": "manualCode",
+                                    "name": "\u624b\u5de5\u5355\u53f7",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559041788853",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u624b\u5de5\u5355\u53f7\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 0,
+                                    "key": "id_1559041790963",
+                                    "model": "clientCode",
+                                    "name": "\u5ba2\u6237\u5355\u53f7",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559041790963",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u5ba2\u6237\u5355\u53f7\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-select",
+                                    "issys": 0,
+                                    "key": "id_1559124649756",
+                                    "model": "truckLength",
+                                    "name": "\u8f66\u957f(m)",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": false,
+                                        "multiple": false,
+                                        "options": [],
+                                        "placeholder": "",
+                                        "props": {
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": false,
+                                        "remoteFunc": "",
+                                        "remoteOptions": [],
+                                        "required": false,
+                                        "showLabel": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "select"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-select",
+                                    "issys": 0,
+                                    "key": "id_1559124652481",
+                                    "model": "truckType",
+                                    "name": "\u8f66\u8f86\u7c7b\u578b",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": false,
+                                        "multiple": false,
+                                        "options": [],
+                                        "placeholder": "",
+                                        "props": {
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": false,
+                                        "remoteFunc": "",
+                                        "remoteOptions": [],
+                                        "required": false,
+                                        "showLabel": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "select"
+                                }
+                            ],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559041587060",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "gutter": "",
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559041587060"
+                    },
+                    "rules": [],
+                    "type": "grid"
+                }
+            ],
+            "name": "",
+            "options": {
+                "isedit": false,
+                "remoteFunc": "func_id_1559041564121"
+            },
+            "rules": [],
+            "type": "panel"
+        },
+        {
+            "classname": "seller-info",
+            "icon": "icon-panel",
+            "issys": 1,
+            "key": "id_1559041565718",
+            "list": [
+                {
+                    "icon": "icon-text",
+                    "issys": 1,
+                    "key": "id_1559041607257",
+                    "model": "text_id_1559041607257",
+                    "name": "\u53d1\u8d27\u65b9\u4fe1\u606f",
+                    "options": {
+                        "remoteFunc": "func_id_1559041607257"
+                    },
+                    "rules": [],
+                    "type": "text"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559209643733",
+                                    "model": "sdName",
+                                    "name": "\u53d1\u8d27\u65b9\u540d\u79f0",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": true,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559209643733",
+                                        "required": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u53d1\u8d27\u65b9\u540d\u79f0\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "message": "\u53d1\u8d27\u65b9\u540d\u79f0\u5fc5\u987b\u586b\u5199",
+                                            "required": true
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-jilianxuanze",
+                                    "issys": 1,
+                                    "key": "id_1559125095470",
+                                    "model": "sdAddressArea",
+                                    "name": "\u53d1\u8d27\u533a\u57df",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "array",
+                                        "defaultValue": [],
+                                        "disabled": false,
+                                        "placeholder": "",
+                                        "props": {
+                                            "children": "children",
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": true,
+                                        "remoteFunc": "func_id_1559125095470",
+                                        "remoteOptions": [],
+                                        "required": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u53d1\u8d27\u533a\u57df\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "array"
+                                        },
+                                        {
+                                            "message": "\u53d1\u8d27\u533a\u57df\u5fc5\u987b\u586b\u5199",
+                                            "required": true
+                                        }
+                                    ],
+                                    "type": "cascader"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 0,
+                                    "key": "id_1559041919868",
+                                    "model": "sdContact",
+                                    "name": "\u53d1\u8d27\u65b9\u8054\u7cfb\u4eba",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559041919868",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u53d1\u8d27\u65b9\u8054\u7cfb\u4eba\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 0,
+                                    "key": "id_1559041929508",
+                                    "model": "sdMobile",
+                                    "name": "\u53d1\u8d27\u65b9\u624b\u673a\u53f7",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559041929508",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u53d1\u8d27\u65b9\u624b\u673a\u53f7\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559041609540",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559041609540"
+                    },
+                    "type": "grid"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559041935141",
+                                    "model": "sdAddress",
+                                    "name": "\u53d1\u8d27\u65b9\u5730\u5740",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559041935141",
+                                        "required": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u53d1\u8d27\u65b9\u8054\u7cfb\u4eba\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "message": "\u53d1\u8d27\u65b9\u5730\u5740\u5fc5\u987b\u586b\u5199",
+                                            "required": true
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [],
+                            "span": 6
+                        },
+                        {
+                            "list": [],
+                            "span": 6
+                        },
+                        {
+                            "list": [],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559041611677",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559041611677"
+                    },
+                    "type": "grid"
+                }
+            ],
+            "name": "\u53d1\u8d27\u65b9\u4fe1\u606f",
+            "options": {
+                "isedit": false,
+                "remoteFunc": "func_id_1559041565718"
+            },
+            "type": "panel"
+        },
+        {
+            "classname": "buyer-info",
+            "icon": "icon-panel",
+            "issys": 1,
+            "key": "id_1559041567242",
+            "list": [
+                {
+                    "icon": "icon-text",
+                    "issys": 1,
+                    "key": "id_1559041983450",
+                    "model": "text_id_1559041983450",
+                    "name": "\u6536\u8d27\u65b9\u4fe1\u606f",
+                    "options": {
+                        "remoteFunc": "func_id_1559041983450"
+                    },
+                    "rules": [],
+                    "type": "text"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559209580607",
+                                    "model": "rvName",
+                                    "name": "\u6536\u8d27\u65b9\u540d\u79f0",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": true,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559209580607",
+                                        "required": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u53d1\u8d27\u65b9\u540d\u79f0\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "message": "\u6536\u8d27\u65b9\u540d\u79f0\u5fc5\u987b\u586b\u5199",
+                                            "required": true
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-jilianxuanze",
+                                    "issys": 1,
+                                    "key": "id_1559125100768",
+                                    "model": "rvAddressArea",
+                                    "name": "\u6536\u8d27\u533a\u57df",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "array",
+                                        "defaultValue": [],
+                                        "disabled": false,
+                                        "placeholder": "",
+                                        "props": {
+                                            "children": "children",
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": true,
+                                        "remoteFunc": "func_id_1559125100768",
+                                        "remoteOptions": [],
+                                        "required": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u6536\u8d27\u533a\u57df\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "array"
+                                        },
+                                        {
+                                            "message": "\u6536\u8d27\u533a\u57df\u5fc5\u987b\u586b\u5199",
+                                            "required": true
+                                        }
+                                    ],
+                                    "type": "cascader"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 0,
+                                    "key": "id_1559042008868",
+                                    "model": "rvContact",
+                                    "name": "\u6536\u8d27\u65b9\u8054\u7cfb\u4eba",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559042008868",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u6536\u8d27\u65b9\u8054\u7cfb\u4eba\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 0,
+                                    "key": "id_1559042011923",
+                                    "model": "rvMobile",
+                                    "name": "\u6536\u8d27\u65b9\u624b\u673a\u53f7",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559042011923",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559041986439",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559041986439"
+                    },
+                    "type": "grid"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559042016755",
+                                    "model": "rvAddress",
+                                    "name": "\u6536\u8d27\u65b9\u5730\u5740",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559042016755",
+                                        "required": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u53d1\u8d27\u65b9\u8054\u7cfb\u4eba\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "message": "\u6536\u8d27\u65b9\u5730\u5740\u5fc5\u987b\u586b\u5199",
+                                            "required": true
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [],
+                            "span": 6
+                        },
+                        {
+                            "list": [],
+                            "span": 6
+                        },
+                        {
+                            "list": [],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559041991072",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559041991072"
+                    },
+                    "type": "grid"
+                }
+            ],
+            "name": "\u6536\u8d27\u65b9\u4fe1\u606f",
+            "options": {
+                "isedit": false,
+                "remoteFunc": "func_id_1559041567242"
+            },
+            "type": "panel"
+        },
+        {
+            "classname": "goods-info",
+            "icon": "icon-panel",
+            "issys": 1,
+            "key": "id_1559041568879",
+            "list": [
+                {
+                    "icon": "icon-text",
+                    "issys": 1,
+                    "key": "id_1559042073859",
+                    "model": "text_id_1559042073859",
+                    "name": "\u8d27\u7269\u4fe1\u606f",
+                    "options": {
+                        "remoteFunc": "func_id_1559042073859"
+                    },
+                    "rules": [],
+                    "type": "text"
+                },
+                {
+                    "columns": [
+                        {
+                            "field": "key",
+                            "label": "\u5e8f\u53f7",
+                            "required": false,
+                            "type": "index"
+                        },
+                        {
+                            "field": "consignmentId",
+                            "label": "\u8d27\u7269\u540d\u79f0",
+                            "required": false,
+                            "type": "search"
+                        },
+                        {
+                            "field": "consignmentCode",
+                            "label": "\u8d27\u7269\u4ee3\u7801",
+                            "required": true,
+                            "type": "input"
+                        },
+                        {
+                            "field": "packageType",
+                            "label": "\u8d27\u7269\u5305\u88c5",
+                            "required": false,
+                            "type": "select"
+                        },
+                        {
+                            "field": "consignmentType",
+                            "label": "\u8d27\u7269\u7c7b\u578b",
+                            "required": false,
+                            "type": "select"
+                        },
+                        {
+                            "field": "orderAmount",
+                            "label": "\u4ef6\u6570",
+                            "required": true,
+                            "type": "number"
+                        },
+                        {
+                            "field": "orderTargetWeight",
+                            "label": "\u91cd\u91cf(kg)",
+                            "required": false,
+                            "type": "number"
+                        },
+                        {
+                            "field": "orderTargetVolume",
+                            "label": "\u4f53\u79ef(m\u00b3)",
+                            "required": false,
+                            "type": "number"
+                        },
+                        {
+                            "field": "deliveryCode",
+                            "label": "\u4ea4\u8d27\u5355\u53f7",
+                            "required": false,
+                            "type": "input"
+                        },
+                        {
+                            "field": "consignmentValue",
+                            "label": "\u7533\u660e\u4ef7\u503c",
+                            "required": false,
+                            "type": "number"
+                        },
+                        {
+                            "field": "unitWeight",
+                            "label": "\u5355\u4ef6\u91cd\u91cf",
+                            "required": false,
+                            "type": "number"
+                        },
+                        {
+                            "field": "unitVolume",
+                            "label": "\u5355\u4ef6\u4f53\u79ef",
+                            "required": false,
+                            "type": "number"
+                        },
+                        {
+                            "field": "remark",
+                            "label": "\u5907\u6ce8",
+                            "required": false,
+                            "type": "input"
+                        }
+                    ],
+                    "icon": "icon-grid",
+                    "issys": 1,
+                    "key": "id_1559042078275",
+                    "model": "consignments",
+                    "name": "\u8868\u683c",
+                    "operate": [
+                        {
+                            "label": "\u5220\u9664"
+                        }
+                    ],
+                    "options": {
+                        "remoteFunc": "func_id_1559042078275"
+                    },
+                    "rules": [],
+                    "type": "table"
+                }
+            ],
+            "name": "\u8d27\u7269\u4fe1\u606f",
+            "options": {
+                "isedit": false,
+                "remoteFunc": "func_id_1559041568879"
+            },
+            "type": "panel"
+        },
+        {
+            "classname": "cost-info",
+            "icon": "icon-panel",
+            "issys": 1,
+            "key": "id_1559041570458",
+            "list": [
+                {
+                    "icon": "icon-text",
+                    "issys": 1,
+                    "key": "id_1559042205915",
+                    "model": "text_id_1559042205915",
+                    "name": "\u8d39\u7528\u4fe1\u606f",
+                    "options": {
+                        "remoteFunc": "func_id_1559042205915"
+                    },
+                    "rules": [],
+                    "type": "text"
+                },
+                {
+                    "classname": "wa_add_price",
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "classname": "wa_add_price_type",
+                                    "icon": "icon-radio-active",
+                                    "issys": 1,
+                                    "key": "id_1559045276026",
+                                    "model": "calculateType",
+                                    "name": "",
+                                    "options": {
+                                        "defaultValue": "1",
+                                        "disabled": false,
+                                        "inline": true,
+                                        "options": [
+                                            {
+                                                "label": "\u6309\u5408\u540c\u8ba1\u8d39",
+                                                "value": "1"
+                                            },
+                                            {
+                                                "label": "\u6309\u624b\u5de5\u8ba1\u8d39",
+                                                "value": "2"
+                                            }
+                                        ],
+                                        "props": {
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": false,
+                                        "remoteFunc": "",
+                                        "remoteOptions": [],
+                                        "required": false,
+                                        "showLabel": true,
+                                        "width": ""
+                                    },
+                                    "rules": [],
+                                    "type": "radio"
+                                }
+                            ],
+                            "span": 24
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559042234462",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "",
+                        "columns": 1,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559042234462"
+                    },
+                    "rules": [],
+                    "type": "grid"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "classname": "wa_add_price_select",
+                                    "icon": "icon-select",
+                                    "issys": 1,
+                                    "key": "id_1559124790655",
+                                    "model": "priceUnit",
+                                    "name": "\u8ba1\u8d39\u65b9\u5f0f",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": false,
+                                        "multiple": false,
+                                        "options": [],
+                                        "placeholder": "",
+                                        "props": {
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": false,
+                                        "remoteFunc": "",
+                                        "remoteOptions": [],
+                                        "required": false,
+                                        "showLabel": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "select"
+                                },
+                                {
+                                    "classname": "wa_add_price_select_btn",
+                                    "icon": "icon-text",
+                                    "issys": 1,
+                                    "key": "id_1559121974890",
+                                    "model": "matcontractbut",
+                                    "name": "\u5339\u914d\u5408\u540c",
+                                    "options": {
+                                        "remoteFunc": "func_id_1559121974890"
+                                    },
+                                    "rules": [],
+                                    "type": "text"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559045316588",
+                                    "model": "unitPrice",
+                                    "name": "\u5355\u4ef7\uff08\u5143\uff09",
+                                    "options": {
+                                        "dataType": "number",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559045316588",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u5355\u4ef7\uff08\u5143\uff09\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "number"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559045320556",
+                                    "model": "contractName",
+                                    "name": "\u5408\u540c\u540d\u79f0",
+                                    "options": {
+                                        "dataType": "string",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559045320556",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u5408\u540c\u540d\u79f0\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559042218901",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559042218901"
+                    },
+                    "rules": [],
+                    "type": "grid"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559045327653",
+                                    "model": "totalMoney",
+                                    "name": "\u8d39\u7528\u5408\u8ba1",
+                                    "options": {
+                                        "dataType": "number",
+                                        "defaultValue": "",
+                                        "disabled": true,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559045327653",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u8d39\u7528\u5408\u8ba1\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "number"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559045333468",
+                                    "model": "settlementMonth",
+                                    "name": "\u6708\u7ed3",
+                                    "options": {
+                                        "dataType": "number",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559045333468",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u6708\u7ed3\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "number"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559045335428",
+                                    "model": "settlementCurrent",
+                                    "name": "\u73b0\u4ed8",
+                                    "options": {
+                                        "dataType": "number",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559045335428",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u73b0\u4ed8\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "number"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-input",
+                                    "issys": 1,
+                                    "key": "id_1559045337804",
+                                    "model": "settlementArrival",
+                                    "name": "\u5230\u4ed8",
+                                    "options": {
+                                        "dataType": "number",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559045337804",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [
+                                        {
+                                            "message": "\u5230\u4ed8\u683c\u5f0f\u4e0d\u6b63\u786e",
+                                            "type": "number"
+                                        }
+                                    ],
+                                    "type": "input"
+                                }
+                            ],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 1,
+                    "key": "id_1559042221366",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559042221366"
+                    },
+                    "type": "grid"
+                }
+            ],
+            "name": "\u8d39\u7528\u4fe1\u606f",
+            "options": {
+                "isedit": false,
+                "remoteFunc": "func_id_1559041570458"
+            },
+            "type": "panel"
+        },
+        {
+            "classname": "clam-info",
+            "icon": "icon-panel",
+            "issys": 0,
+            "key": "id_1559041573649",
+            "list": [
+                {
+                    "icon": "icon-text",
+                    "issys": 1,
+                    "key": "id_1559045446788",
+                    "model": "text_id_1559045446788",
+                    "name": "\u8fd0\u8f93\u8981\u6c42",
+                    "options": {
+                        "remoteFunc": "func_id_1559045446788"
+                    },
+                    "rules": [],
+                    "type": "text"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-date",
+                                    "issys": 0,
+                                    "key": "id_1559045477001",
+                                    "model": "reqDeliveryDate",
+                                    "name": "\u8981\u6c42\u63d0\u8d27\u65f6\u95f4",
+                                    "options": {
+                                        "clearable": true,
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "editable": true,
+                                        "endPlaceholder": "",
+                                        "format": "yyyy-MM-dd HH:mm:ss",
+                                        "placeholder": "\u8bf7\u9009\u62e9\u8981\u6c42\u63d0\u8d27\u65f6\u95f4",
+                                        "readonly": false,
+                                        "remoteFunc": "func_id_1559045477001",
+                                        "required": false,
+                                        "startPlaceholder": "",
+                                        "timestamp": false,
+                                        "type": "datetime",
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "date"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-number",
+                                    "issys": 0,
+                                    "key": "id_1559045479573",
+                                    "model": "timeLimit",
+                                    "name": "\u65f6\u6548(\u5c0f\u65f6)",
+                                    "options": {
+                                        "controlsPosition": "",
+                                        "defaultValue": 0,
+                                        "disabled": false,
+                                        "max": 0,
+                                        "min": 0,
+                                        "remoteFunc": "func_id_1559045479573",
+                                        "required": false,
+                                        "step": 1,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "number"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-date",
+                                    "issys": 0,
+                                    "key": "id_1559045481966",
+                                    "model": "reqArrivalDate",
+                                    "name": "\u8981\u6c42\u9001\u8fbe\u65f6\u95f4",
+                                    "options": {
+                                        "clearable": true,
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "editable": true,
+                                        "endPlaceholder": "",
+                                        "format": "yyyy-MM-dd HH:mm:ss",
+                                        "placeholder": "",
+                                        "readonly": false,
+                                        "remoteFunc": "func_id_1559045481966",
+                                        "required": false,
+                                        "startPlaceholder": "",
+                                        "timestamp": false,
+                                        "type": "datetime",
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "date"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-date",
+                                    "issys": 0,
+                                    "key": "id_1559045484597",
+                                    "model": "transportDate",
+                                    "name": "\u6258\u8fd0\u65e5\u671f",
+                                    "options": {
+                                        "clearable": true,
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "editable": true,
+                                        "endPlaceholder": "",
+                                        "format": "yyyy-MM-dd",
+                                        "placeholder": "",
+                                        "readonly": false,
+                                        "remoteFunc": "func_id_1559045484597",
+                                        "required": false,
+                                        "startPlaceholder": "",
+                                        "timestamp": false,
+                                        "type": "date",
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "date"
+                                }
+                            ],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 0,
+                    "key": "id_1559045448605",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559045448605"
+                    },
+                    "type": "grid"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-select",
+                                    "issys": 0,
+                                    "key": "id_1559124784823",
+                                    "model": "receiptType",
+                                    "name": "\u56de\u5355\u7c7b\u578b",
+                                    "options": {
+                                        "clearable": false,
+                                        "dataType": "",
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "filterable": false,
+                                        "multiple": false,
+                                        "options": [],
+                                        "placeholder": "",
+                                        "props": {
+                                            "label": "label",
+                                            "value": "value"
+                                        },
+                                        "remote": false,
+                                        "remoteFunc": "",
+                                        "remoteOptions": [],
+                                        "required": false,
+                                        "showLabel": true,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "select"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-number",
+                                    "issys": 0,
+                                    "key": "id_1559045495767",
+                                    "model": "receiptAmount",
+                                    "name": "\u56de\u5355\u4efd\u6570",
+                                    "options": {
+                                        "controlsPosition": "",
+                                        "defaultValue": 0,
+                                        "disabled": false,
+                                        "max": 0,
+                                        "min": 0,
+                                        "remoteFunc": "func_id_1559045495767",
+                                        "required": false,
+                                        "step": 1,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "number"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-date",
+                                    "issys": 0,
+                                    "key": "id_1559045500782",
+                                    "model": "reqReturnDate",
+                                    "name": "\u56de\u5355\u8fd4\u56de\u65f6\u95f4",
+                                    "options": {
+                                        "clearable": true,
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "editable": true,
+                                        "endPlaceholder": "",
+                                        "format": "yyyy-MM-dd",
+                                        "placeholder": "",
+                                        "readonly": false,
+                                        "remoteFunc": "func_id_1559045500782",
+                                        "required": false,
+                                        "startPlaceholder": "",
+                                        "timestamp": false,
+                                        "type": "date",
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "date"
+                                }
+                            ],
+                            "span": 6
+                        },
+                        {
+                            "list": [],
+                            "span": 6
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 0,
+                    "key": "id_1559045450605",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 4,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559045450605"
+                    },
+                    "rules": [],
+                    "type": "grid"
+                },
+                {
+                    "columns": [
+                        {
+                            "list": [
+                                {
+                                    "icon": "icon-diy-com-textarea",
+                                    "issys": 0,
+                                    "key": "id_1559045511701",
+                                    "model": "remark",
+                                    "name": "\u5907\u6ce8",
+                                    "options": {
+                                        "defaultValue": "",
+                                        "disabled": false,
+                                        "pattern": "",
+                                        "placeholder": "",
+                                        "remoteFunc": "func_id_1559045511701",
+                                        "required": false,
+                                        "width": "100%"
+                                    },
+                                    "rules": [],
+                                    "type": "textarea"
+                                }
+                            ],
+                            "span": 24
+                        }
+                    ],
+                    "icon": "icon-grid-",
+                    "issys": 0,
+                    "key": "id_1559045453185",
+                    "name": "\u6805\u683c\u5e03\u5c40",
+                    "options": {
+                        "align": "top",
+                        "bgcolor": "#fff",
+                        "columns": 1,
+                        "justify": "start",
+                        "remoteFunc": "func_id_1559045453185"
+                    },
+                    "type": "grid"
+                }
+            ],
+            "name": "",
+            "options": {
+                "isedit": false,
+                "remoteFunc": "func_id_1559041573649"
+            },
+            "type": "panel"
+        }
+    ]
+}
