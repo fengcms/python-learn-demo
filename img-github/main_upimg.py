@@ -42,7 +42,12 @@ def getSuffix(hexStr):
     return 'error type'
 
 def pushGithub():
-    os.system('cd ' + baseDir + ' & git add -A & git commit -m "pushImage" & git push')
+    os.system('whoami')
+    # os.system('cd ' + baseDir + ' & git add -A & git commit -m "pushImage" & git push')
+    os.system('cd ' + baseDir)
+    os.system('git add -A')
+    os.system('git commit -m "pushImage"')
+    os.system('git push')
 
 def saveImage(savePath, image):
     tempFile = open(savePath, 'wb')
