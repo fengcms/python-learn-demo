@@ -8,7 +8,7 @@ from PIL import Image
 from io import BytesIO
 
 app = Sanic()
-baseDir = '/Users/fungleo/Documents/Blog/articles/image/'
+baseDir = '/Users/fungleo/Documents/FungLeo/articlesImage/'
 
 # 成功以及失败的返回脚本
 def ok(data):
@@ -41,10 +41,15 @@ def getSuffix(hexStr):
             return SUPPORT_TYPE[i]
     return 'error type'
 
+def pushGithub():
+    os.system('cd ' + baseDir + ' & git add -A & git commit -m "pushImage" & git push')
+
 def saveImage(savePath, image):
     tempFile = open(savePath, 'wb')
     tempFile.write(image)
     tempFile.close()
+    pushGithub()
+
 
 app.static('/gui', './gui')
 
@@ -71,6 +76,7 @@ async def upimg(request):
     savePath = saveDir + md5Name[2:] + '.' + imageSuffix
     saveSourcePath = saveDir + md5Name[2:] + '_source.' + imageSuffix
     resPath = '/' + md5Name[0:2] + '/' + md5Name[2:] + '.' + imageSuffix
+    print(savePath)
     if imageSuffix == 'svg':
         resPath += '?sanitize=true'
 
