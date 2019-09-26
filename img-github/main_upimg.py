@@ -46,7 +46,7 @@ def pushGithub():
     # os.system('cd ' + baseDir + ' & git add -A & git commit -m "pushImage" & git push')
     os.system('cd ' + baseDir)
     os.system('git add -A')
-    os.system('git commit -m "pushImage"')
+    os.system('git commit -m pushImage')
     os.system('git push')
 
 def saveImage(savePath, image):
