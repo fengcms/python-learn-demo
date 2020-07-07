@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "copy-to-clipboard": "^3.0.8",
-    "electron": "^3.0.0",
+    "electron": "^9.1.0",
     "element-ui": "^2.4.7",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
