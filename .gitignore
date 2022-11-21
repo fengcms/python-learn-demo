@@ -11,3 +11,6 @@ nohup.out
 /news/
 /news_bak/
 /youdao-fanyi/config.py
+/fanyi-node/bin/config.js
+
+node_modules
