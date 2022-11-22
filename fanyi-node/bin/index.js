@@ -53,10 +53,9 @@ const showRes = (word, res) => {
 
   const basic = res.basic
   if (basic) {
-    console.log('\n\033[1;36m有道词典\033[0m')
     const wfs = basic.wfs
-
     if (wfs) {
+      console.log('\n\033[1;36m有道词典\033[0m')
       const table = new Table({ head: ['演化', '结果'], wordWrap: true })
       wfs.forEach(i => {
         table.push([i.wf.name, i.wf.value])
