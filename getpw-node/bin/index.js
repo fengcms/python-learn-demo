@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { Command } = require('commander')
 const { sum } = require('lodash')
 const colors = require('colors')
@@ -52,9 +54,9 @@ const getPassword = (length, level) => {
 
 const returnPassword = async (passwd, name) => {
   clipboard.writeSync(passwd)
-  console.log('↓ 新密码已为您创建 ↓'.green)
-  console.log(passwd.red)
-  console.log('提示：密码已经复制到剪切板')
+  console.log('↓ 新密码已为您创建 ↓'.yellow)
+  console.log(passwd.cyan)
+  console.log('提示：密码已经复制到剪切板'.yellow)
   if (name) {
     const res = await addPw(name, passwd)
     if (res === 200) console.log('密码已经保存到数据库中'.green)

@@ -15,9 +15,9 @@
     "cli-table2": "^0.2.0",
     "colors": "^1.4.0",
     "commander": "^9.4.1",
+    "dayjs": "^1.11.6",
     "lodash": "^4.17.21",
     "node-clipboardy": "^1.0.3",
-    "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.1.2"
   }
 }
